@@ -52,7 +52,7 @@ public class LoadModelServlet extends HttpServlet {
 		String fileContent = scanner.hasNext() ? scanner.next() : "";
 		scanner.close();
 		
-		response.getWriter().append("Filename: " + fileName+ "\n").append(request.getContextPath());
+		response.getWriter().append("Filename2: " + fileName+ "\n").append(request.getContextPath());
 		response.getWriter().append("FileCOntent: " + fileContent + "\n").append(request.getContextPath());
 		response.getWriter().append("description: " + description+ "\n").append(request.getContextPath());
 		
