@@ -10,8 +10,19 @@
   	<description></description>
   	<servlet-class>servlets.UploadFileHandler</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ServerStartUp</servlet-name>
+  	<display-name>ServerStartUp</display-name>
+  	<description></description>
+  	<servlet-class>servlets.ServerStartUp</servlet-class>
+  	<load-on-startup>1</load-on-startup>  
+  </servlet>
   <servlet-mapping>
   	<servlet-name>UploadFileHandler</servlet-name>
   	<url-pattern>/UploadFileHandler</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ServerStartUp</servlet-name>
+  	<url-pattern>/ServerStartUp</url-pattern>
   </servlet-mapping>
 </web-app>

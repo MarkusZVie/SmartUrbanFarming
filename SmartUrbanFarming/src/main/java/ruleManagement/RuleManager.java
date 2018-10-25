@@ -11,7 +11,7 @@ public class RuleManager {
 	public void fireRules(){
 		 // create facts
         Facts facts = new Facts();
-
+        facts.put("value", 19);
         // create rules
         Rules rules = new Rules();
         rules.register(new TestRule());
