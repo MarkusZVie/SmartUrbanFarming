@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ADOXML version="3.1" date="28.10.2018" time="11:48" database="adoxxdb" username="greenhouse" adoversion="Version 5.1">
+<MODELS>
+<MODEL id="mod.29401" name="Smart Farming Model - new (28)" version="" modeltype="Smart Farming Model" libtype="bp" applib="Smart Greenhouse Dynamic Experimentation Library">
+<MODELATTRIBUTES>
+<ATTRIBUTE name="Version number" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Author" type="STRING">greenhouse</ATTRIBUTE>
+<ATTRIBUTE name="Creation date" type="STRING">28.10.2018, 11:45</ATTRIBUTE>
+<ATTRIBUTE name="Date last changed" type="STRING">28.10.2018, 11:46:46</ATTRIBUTE>
+<ATTRIBUTE name="Last user" type="STRING">greenhouse</ATTRIBUTE>
+<ATTRIBUTE name="Keywords" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Comment" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Model type" type="ENUMERATION">Current model</ATTRIBUTE>
+<ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
+<ATTRIBUTE name="Reviewed on" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Reviewed by" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Description" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Number of objects and relations" type="INTEGER">18</ATTRIBUTE>
+<ATTRIBUTE name="World area" type="STRING">w:20.9cm h:29.6cm minw:5cm minh:5cm</ATTRIBUTE>
+<ATTRIBUTE name="Grid" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
+<ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
+GRAPHIC x:-16 y:-16 w:641 h:604 scale:1
+TABLE
+</ATTRIBUTE>
+<ATTRIBUTE name="Current mode" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Base name" type="STRING">Smart Farming Model - new (28)</ATTRIBUTE>
+<ATTRIBUTE name="Access state" type="ENUMERATION">write</ATTRIBUTE>
+<ATTRIBUTE name="Current page layout" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Connector marks" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Type" type="STRING">Smart Farming Model</ATTRIBUTE>
+<ATTRIBUTE name="Change counter" type="INTEGER">78</ATTRIBUTE>
+<ATTRIBUTE name="Font size" type="INTEGER">0</ATTRIBUTE>
+<ATTRIBUTE name="Context of version" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Position" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="__GfxThumb__" type="LONGSTRING">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</ATTRIBUTE>
+</MODELATTRIBUTES>
+<INSTANCE id="obj.29403" class="Crop" name="Basilikum">
+<ATTRIBUTE name="Position" type="STRING">NODE x:3cm y:5cm index:1</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Species" type="ENUMERATION">Herbs</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29406" class="Location" name="Location-29406">
+<ATTRIBUTE name="Position" type="STRING">NODE x:14.5cm y:12cm index:2</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Latitude" type="DOUBLE">340</ATTRIBUTE>
+<ATTRIBUTE name="Longitude" type="DOUBLE">340</ATTRIBUTE>
+<ATTRIBUTE name="Direction" type="ENUMERATION">East</ATTRIBUTE>
+<ATTRIBUTE name="City" type="STRING">Vienna</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29409" class="Farming Module" name="Farming Module-29409">
+<ATTRIBUTE name="Position" type="STRING">NODE x:4cm y:9.5cm index:3</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Length" type="DOUBLE">24</ATTRIBUTE>
+<ATTRIBUTE name="Height" type="DOUBLE">50</ATTRIBUTE>
+<ATTRIBUTE name="Width" type="DOUBLE">530</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29415" class="Water" name="Water-29415">
+<ATTRIBUTE name="Position" type="STRING">NODE x:7.5cm y:1.5cm index:7</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">low</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29418" class="Temperature" name="Temperature-29418">
+<ATTRIBUTE name="Position" type="STRING">NODE x:8cm y:3.5cm index:8</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">low</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29421" class="Light" name="Light-29421">
+<ATTRIBUTE name="Position" type="STRING">NODE x:8.5cm y:5.5cm index:9</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">low</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29424" class="Crop" name="Tomate">
+<ATTRIBUTE name="Position" type="STRING">NODE x:12.5cm y:5cm index:10</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Species" type="ENUMERATION">Bulbous plant</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29427" class="Water" name="Water-29427">
+<ATTRIBUTE name="Position" type="STRING">NODE x:11cm y:1cm index:11</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">high</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29430" class="Temperature" name="Temperature-29430">
+<ATTRIBUTE name="Position" type="STRING">NODE x:12.5cm y:2cm index:12</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">medium</ATTRIBUTE>
+</INSTANCE>
+<INSTANCE id="obj.29447" class="Light" name="Light-29447">
+<ATTRIBUTE name="Position" type="STRING">NODE x:14.5cm y:3.5cm index:19</ATTRIBUTE>
+<ATTRIBUTE name="External tool coupling" type="STRING"></ATTRIBUTE>
+<ATTRIBUTE name="Amount" type="ENUMERATION">medium</ATTRIBUTE>
+</INSTANCE>
+<CONNECTOR id="con.29413" class="In">
+<FROM instance="Location-29406" class="Location"></FROM>
+<TO instance="Farming Module-29409" class="Farming Module"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:5</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29414" class="In">
+<FROM instance="Basilikum" class="Crop"></FROM>
+<TO instance="Farming Module-29409" class="Farming Module"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:6</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29442" class="Requires">
+<FROM instance="Basilikum" class="Crop"></FROM>
+<TO instance="Water-29415" class="Water"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:14</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29443" class="Requires">
+<FROM instance="Basilikum" class="Crop"></FROM>
+<TO instance="Temperature-29418" class="Temperature"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:15</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29444" class="Requires">
+<FROM instance="Basilikum" class="Crop"></FROM>
+<TO instance="Light-29421" class="Light"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:16</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29445" class="Requires">
+<FROM instance="Tomate" class="Crop"></FROM>
+<TO instance="Water-29427" class="Water"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:17</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29446" class="Requires">
+<FROM instance="Tomate" class="Crop"></FROM>
+<TO instance="Temperature-29430" class="Temperature"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:18</ATTRIBUTE>
+</CONNECTOR>
+<CONNECTOR id="con.29450" class="Requires">
+<FROM instance="Tomate" class="Crop"></FROM>
+<TO instance="Light-29447" class="Light"></TO>
+<ATTRIBUTE name="Positions" type="STRING">EDGE 0 index:20</ATTRIBUTE>
+</CONNECTOR>
+</MODEL>
+</MODELS>
+</ADOXML>
