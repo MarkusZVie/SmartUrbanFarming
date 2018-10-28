@@ -30,6 +30,11 @@
     <artifactId>easy-rules-core</artifactId>
     <version>3.2.0</version>
 </dependency>
+ <dependency>
+    <groupId>org.rxtx</groupId>
+    <artifactId>rxtx</artifactId>
+    <version>2.1.7</version>
+	</dependency>
 	
   </dependencies>
   <build>
