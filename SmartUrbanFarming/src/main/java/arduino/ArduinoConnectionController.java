@@ -60,7 +60,7 @@ public void initialize() {
             // the next line is for Raspberry Pi and 
             // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
             //System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
-
+	System.out.println("11>>");
 	CommPortIdentifier portId = null;
 	Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
@@ -68,12 +68,14 @@ public void initialize() {
 	while (portEnum.hasMoreElements()) {
 		CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 		for (String portName : PORT_NAMES) {
+			System.out.println("12>>" + portName);
 			if (currPortId.getName().equals(portName)) {
 				portId = currPortId;
 				break;
 			}
 		}
 	}
+	System.out.println("13>>");
 	if (portId == null) {
 		System.out.println("Could not find COM port.");
 		return;
@@ -89,7 +91,7 @@ public void initialize() {
 				SerialPort.DATABITS_8,
 				SerialPort.STOPBITS_1,
 				SerialPort.PARITY_NONE);
-
+		System.out.println("14>>");
 		// open the streams
 		input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
 		output = serialPort.getOutputStream();
@@ -97,6 +99,7 @@ public void initialize() {
 		// add event listeners
 		serialPort.addEventListener(this);
 		serialPort.notifyOnDataAvailable(true);
+		System.out.println("14>>");
 	} catch (Exception e) {
 		System.err.println(e.toString());
 	}
