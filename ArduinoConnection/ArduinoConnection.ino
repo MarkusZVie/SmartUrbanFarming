@@ -78,9 +78,7 @@ int incomingByte = 0;
 
 void setup()
 {
-    Serial.begin(9600);
-    Serial.println();
-    Serial.println();
+    Serial.begin(1200);
 
     // Initialising the UI will init the display too.
     display.init();

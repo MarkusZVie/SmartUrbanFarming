@@ -36,9 +36,9 @@ private BufferedReader input;
 /** The output stream to the port */
 private OutputStream output;
 /** Milliseconds to block while waiting for port open */
-private static final int TIME_OUT = 2000;
+private static final int TIME_OUT = 4000;
 /** Default bits per second for COM port. */
-private static final int DATA_RATE = 9600;
+private static final int DATA_RATE = 1200;
 
 private static ArduinoConnectionController instance;
 
@@ -127,7 +127,9 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 	System.out.println("serial event");
 	if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 		try {
+			System.out.println("serial event2");
 			String inputLine=input.readLine();
+			System.out.println("serial event3");
 			System.out.println(inputLine);
 			log.add(inputLine);
 		} catch (Exception e) {
