@@ -66,8 +66,9 @@ public void initialize() {
 	//First, Find an instance of serial port as set in PORT_NAMES.
 	while (portEnum.hasMoreElements()) {
 		CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
+		System.out.println("currPortId= " + currPortId);
 		for (String portName : PORT_NAMES) {
-			System.out.println(portName + "  < <> >" + portId);
+			
 			if (currPortId.getName().equals(portName)) {
 				portId = currPortId;
 				break;
@@ -133,6 +134,7 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 }
 
 public synchronized void write(String s) {
+	System.out.println("sdsdsd");
 	PrintWriter pOutput = new PrintWriter(output);
 	pOutput.print(s);
 	pOutput.flush();
