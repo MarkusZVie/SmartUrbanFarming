@@ -68,14 +68,16 @@ public void initialize() {
 		CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 		System.out.println("currPortId= " + currPortId);
 		for (String portName : PORT_NAMES) {
-			
+			System.out.println("portName= " + portName);
 			if (currPortId.getName().equals(portName)) {
 				portId = currPortId;
+				System.out.println("portId == " + currPortId);
 				break;
 			}
 		}
+		System.out.println("endfor == " + currPortId);
 	}
-	System.out.println(portId);
+	System.out.println("endwhile == " + portId);
 	if (portId == null) {
 		System.out.println("Could not find COM port.");
 		return;
@@ -99,10 +101,11 @@ public void initialize() {
 		serialPort.addEventListener(this);
 		serialPort.notifyOnDataAvailable(true);
 		
+		System.out.println("Things Done");
+		
 	} catch (Exception e) {
 		System.err.println(e.toString());
 	}
-	System.out.println(portId);
 }
 
 /**
