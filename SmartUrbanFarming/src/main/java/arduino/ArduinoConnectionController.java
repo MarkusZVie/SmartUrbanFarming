@@ -38,7 +38,7 @@ private OutputStream output;
 /** Milliseconds to block while waiting for port open */
 private static final int TIME_OUT = 4000;
 /** Default bits per second for COM port. */
-private static final int DATA_RATE = 1200;
+private static final int DATA_RATE = 115200;
 
 private static ArduinoConnectionController instance;
 
