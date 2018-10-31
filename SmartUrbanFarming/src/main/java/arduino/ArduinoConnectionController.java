@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 
 import gnu.io.CommPortIdentifier; 
 import gnu.io.SerialPort;
@@ -12,7 +15,6 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Enumeration;
 
 
@@ -61,6 +63,7 @@ public void initialize() {
             // gets us into the while loop and was suggested here was suggested http://www.raspberrypi.org/phpBB3/viewtopic.php?f=81&t=32186
             //System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
 	CommPortIdentifier portId = null;
+	@SuppressWarnings("rawtypes")
 	Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
 	//First, Find an instance of serial port as set in PORT_NAMES.
@@ -143,6 +146,40 @@ public synchronized void write(String s) {
 	System.out.println("sdsdsd");
 	PrintWriter pOutput = new PrintWriter(output);
 	pOutput.print(s);
+	pOutput.flush();
+	pOutput.close();
+}
+
+public synchronized void writeWithIPAdress(String s) {
+	String ipAdress = "IP:";
+	try {
+		@SuppressWarnings("rawtypes")
+		Enumeration e = NetworkInterface.getNetworkInterfaces();
+		while(e.hasMoreElements())
+		{
+		    NetworkInterface n = (NetworkInterface) e.nextElement();
+		    @SuppressWarnings("rawtypes")
+			Enumeration ee = n.getInetAddresses();
+		    while (ee.hasMoreElements())
+		    {
+		        InetAddress i = (InetAddress) ee.nextElement();
+		        if(i instanceof Inet6Address||i.getHostAddress().equals("127.0.0.1")) {
+		        	//those are not allowed
+		        }else {
+		        	if(ipAdress.equals("IP:")) {
+			        	 ipAdress += i.getHostAddress();
+			        }else {
+			        	 ipAdress += " and " + i.getHostAddress();
+			        }
+		        }
+		        
+		    }
+		}
+	} catch (SocketException e) {
+		ipAdress = "No Ip found";
+	}
+	PrintWriter pOutput = new PrintWriter(output);
+	pOutput.print(ipAdress + s);
 	pOutput.flush();
 	pOutput.close();
 }

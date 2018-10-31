@@ -39,7 +39,7 @@ public class ArduinoControl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String content = request.getParameter("content");
-		ArduinoConnectionController.getInstance().write(content);
+		ArduinoConnectionController.getInstance().writeWithIPAdress(content);
 		System.out.println(content);
 		request.setAttribute("log", ArduinoConnectionController.getInstance().getWebLog()); // Will be available as ${products} in JSP
         request.getRequestDispatcher("ArduinoControl.jsp").forward(request, response);		

@@ -29,6 +29,9 @@ public class ServerStartUp extends HttpServlet {
           RuleManager rm = new RuleManager();
           rm.fireRules();
           
+          
+          //Arduino give him IP
+          ArduinoConnectionController.getInstance().writeWithIPAdress(" Server has started");
     }
     
 	
