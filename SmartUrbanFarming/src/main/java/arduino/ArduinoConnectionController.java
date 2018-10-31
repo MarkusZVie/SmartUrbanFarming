@@ -69,18 +69,13 @@ public void initialize() {
 	//First, Find an instance of serial port as set in PORT_NAMES.
 	while (portEnum.hasMoreElements()) {
 		CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
-		System.out.println("currPortId= " + currPortId);
 		for (String portName : PORT_NAMES) {
-			System.out.println("portName= " + portName);
 			if (currPortId.getName().equals(portName)) {
 				portId = currPortId;
-				System.out.println("portId == " + currPortId);
 				break;
 			}
 		}
-		System.out.println("endfor == " + currPortId);
 	}
-	System.out.println("endwhile == " + portId);
 	if (portId == null) {
 		System.out.println("Could not find COM port.");
 		return;
@@ -104,7 +99,6 @@ public void initialize() {
 		serialPort.addEventListener(this);
 		serialPort.notifyOnDataAvailable(true);
 		
-		System.out.println("Things Done");
 		
 	} catch (Exception e) {
 		System.err.println(e.toString());
@@ -130,9 +124,7 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 	System.out.println("serial event");
 	if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 		try {
-			System.out.println("serial event2");
 			String inputLine=input.readLine();
-			System.out.println("serial event3");
 			System.out.println(inputLine);
 			log.add(inputLine);
 		} catch (Exception e) {
@@ -143,7 +135,6 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 }
 
 public synchronized void write(String s) {
-	System.out.println("sdsdsd");
 	PrintWriter pOutput = new PrintWriter(output);
 	pOutput.print(s);
 	pOutput.flush();
