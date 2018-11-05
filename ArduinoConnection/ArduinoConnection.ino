@@ -70,8 +70,9 @@ SSD1306 display(0x3c, 5, 4);
 
 void setup()
 {
+  
     Serial.begin(9600);
-	delay(2000);
+	  delay(2000);
     // Initialising the UI will init the display too.
     display.init();
     display.flipScreenVertically();
@@ -100,5 +101,8 @@ void loop()
 	}
     if(Serial.available()){
         received = Serial.readStringUntil('\n');
+    }
+    if(received.equals("exit")){
+      exit(0);
     }
 }
