@@ -23,3 +23,4 @@ temperature	ENUM('low','medium','high'),
 farm_name VARCHAR(20),
 CONSTRAINT fk2 FOREIGN KEY (farm_name) REFERENCES farming_module(farm_name)
 );
+
