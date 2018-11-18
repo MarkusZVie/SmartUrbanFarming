@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -35,7 +36,12 @@ public class Parser {
 			XPath xPath =  XPathFactory.newInstance().newXPath();
 			
 			ArrayList<String> location = new ArrayList<String>();
-			
+			String loc_name="";
+			String longitude="";
+			String latitude="";
+			String direction="";
+			String city="";
+			String farm_name="";
 			
 			//Get all location inside the model
 			XPathExpression expr5= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@class=\"Location\"]/@name");
@@ -50,16 +56,19 @@ public class Parser {
 			//For all location get the attributes (lat,long,direction and city)
 			for(int i=0; i<location.size(); i++) {
 				String name = location.get(i);
+				loc_name = name; 
 				XPathExpression expr6= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"Latitude\"]");
 				NodeList nodel = (NodeList) expr6.evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int j = 0; j < nodel.getLength(); j++) {
 				    Node node = nodel.item(j);	
+				    latitude = node.getTextContent(); 
 				    System.out.println("Latitude: " + node.getTextContent());
 				}
 				XPathExpression expr7= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"Longitude\"]");
 				NodeList n2 = (NodeList) expr7.evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int j = 0; j < n2.getLength(); j++) {
 				    Node node = n2.item(j);
+				    longitude = node.getTextContent(); 
 				    System.out.println("Longitude: " + node.getTextContent());
 				}
 				XPathExpression expr8= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"Direction\"]");
@@ -150,6 +159,12 @@ public class Parser {
 			e.printStackTrace();
 		}		
 		
+		String execute = "";
+		try {
+			DB_connection.dbAccess(execute);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 }
 }

@@ -9,11 +9,11 @@ import java.sql.Statement;
 public class DB_connection {
 	Connection conn;
 
-	public static void main(String[] args) throws SQLException {
+	public static void dbAccess(String arg) throws SQLException {
 		DB_connection app = new DB_connection();
 
 		app.connectionToDerby();
-		app.dbExecute();
+		app.dbExecute(arg);
 		}
 	
 	public void connectionToDerby() throws SQLException {
@@ -21,18 +21,15 @@ public class DB_connection {
 		conn = DriverManager.getConnection(dbUrl);
 		}
 
-
 	
-	public void	dbExecute() throws SQLException {
+	public void	dbExecute(String statement) throws SQLException {
+		Statement stmt = conn.createStatement();		
+		stmt.executeUpdate(statement);	
+}
+	
+	public void	dbRead(String statement) throws SQLException {
 		Statement stmt = conn.createStatement();
-		
-		stmt.executeUpdate("Create table users (id int primary key, name varchar(30))");
-
-
-		stmt.executeUpdate("insert into users values (1,'test')");
-		stmt.executeUpdate("insert into users values (2,'test2')");
-
-		ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+		ResultSet rs = stmt.executeQuery(statement);
 		
 		while (rs.next()) { 
 			System.out.printf("%d\t%s\n", rs.getInt("id"), rs.getString("name"));;
