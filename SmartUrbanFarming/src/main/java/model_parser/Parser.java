@@ -42,6 +42,13 @@ public class Parser {
 			String direction="";
 			String city="";
 			String farm_name="";
+			String length="";
+			String height="";
+			String width="";
+			String crop_name="";
+			String water="";
+			String temp="";
+			String light="";
 			
 			//Get all location inside the model
 			XPathExpression expr5= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@class=\"Location\"]/@name");
@@ -62,26 +69,36 @@ public class Parser {
 				for (int j = 0; j < nodel.getLength(); j++) {
 				    Node node = nodel.item(j);	
 				    latitude = node.getTextContent(); 
-				    System.out.println("Latitude: " + node.getTextContent());
+				    System.out.println("Latitude: " + latitude);
 				}
 				XPathExpression expr7= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"Longitude\"]");
 				NodeList n2 = (NodeList) expr7.evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int j = 0; j < n2.getLength(); j++) {
 				    Node node = n2.item(j);
 				    longitude = node.getTextContent(); 
-				    System.out.println("Longitude: " + node.getTextContent());
+				    System.out.println("Longitude: " + longitude);
 				}
 				XPathExpression expr8= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"Direction\"]");
 				NodeList n3 = (NodeList) expr8.evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int j = 0; j < n3.getLength(); j++) {
 				    Node node = n3.item(j);	
-				    System.out.println("Direction: " + node.getTextContent());
+				    direction = node.getTextContent();
+				    System.out.println("Direction: " + direction);
 				}
 				XPathExpression expr9= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name +"']/ATTRIBUTE[@name=\"City\"]");
 				NodeList n4 = (NodeList) expr9.evaluate(xmlDocument, XPathConstants.NODESET);
 				for (int j = 0; j < n4.getLength(); j++) {
 				    Node node = n4.item(j);	
-				    System.out.println("City: " + node.getTextContent());
+				    city = node.getTextContent();
+				    System.out.println("City: " + city);
+				}
+				
+				String execute = "INSERT INTO location VALUES(\'" + loc_name +"\', \'" +city + "\', \'" + direction + "\', \'"+longitude +"\', \'" +latitude +"\')" ;
+				System.out.println(execute);
+				try {
+					DB_connection.dbAccess(execute);
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 				
 		
@@ -97,25 +114,35 @@ public class Parser {
 				}
 				for(int l=0; l<module.size(); l++) {
 					String name1 = module.get(l);
+					farm_name= name1;
 					XPathExpression expr16= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name1 +"']/ATTRIBUTE[@name=\"Length\"]");
 					NodeList n5 = (NodeList) expr16.evaluate(xmlDocument, XPathConstants.NODESET);
 					for (int j = 0; j < n5.getLength(); j++) {
 					    Node node = n5.item(j);
-					    System.out.println("Lenght: " + node.getTextContent());
+					    length = node.getTextContent();
+					    System.out.println("Lenght: " + length);
 					}
 					XPathExpression expr17= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name1 +"']/ATTRIBUTE[@name=\"Height\"]");
 					NodeList n6 = (NodeList) expr17.evaluate(xmlDocument, XPathConstants.NODESET);
 					for (int j = 0; j < n6.getLength(); j++) {
 					    Node node = n6.item(j);
-					    System.out.println("Height: " + node.getTextContent());
+					    height = node.getTextContent();
+					    System.out.println("Height: " +  height);
 					}
 					XPathExpression expr18= xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name='" + name1 +"']/ATTRIBUTE[@name=\"Width\"]");
 					NodeList n7 = (NodeList) expr18.evaluate(xmlDocument, XPathConstants.NODESET);
 					for (int j = 0; j < n7.getLength(); j++) {
 					    Node node = n7.item(j);
-					    System.out.println("Width: " + node.getTextContent());
+					    width = node.getTextContent();
+					    System.out.println("Width: " + width);
 					}
-					
+					String execute1 = "INSERT INTO farming_module VALUES(\'" + farm_name +"\', \'" + length + "\', \'" + height + "\', \'"+ width +"\', \'" + loc_name +"\')" ;
+					System.out.println(execute1);
+					try {
+						DB_connection.dbAccess(execute1);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 					
 					//Get all crops in this farming module
 					ArrayList<String> crops = new ArrayList<String>();
@@ -130,7 +157,7 @@ public class Parser {
 					}
 					for(int m=0; m<crops.size(); m++) {
 						String name2 = crops.get(m);
-					
+						crop_name = name2;
 						XPathExpression expr1= xPath.compile("/ADOXML/MODELS/MODEL/CONNECTOR[@class=\"Requires\"]/FROM[@instance=\""+name2+"\"]/../TO/@instance");
 						NodeList nl1 = (NodeList) expr1.evaluate(xmlDocument, XPathConstants.NODESET);
 							for (int j = 0; j < nl1.getLength(); j++) {
@@ -141,7 +168,23 @@ public class Parser {
 								XPathExpression expr2 =  xPath.compile("/ADOXML/MODELS/MODEL/INSTANCE[@name=\""+node.getTextContent()+"\"]/ATTRIBUTE[@name=\"Amount\"]");
 								String evalu = (String) expr2.evaluate(xmlDocument, XPathConstants.STRING);
 								System.out.println(": " + evalu);
+								if(needs.equals("Water")) {
+									water = evalu;
+								}
+								if(needs.equals("Temperature")) {
+								temp = evalu;
+								}
+								if(needs.equals("Light")) {
+								light = evalu;
+								}							
 						}
+						String execute2 = "INSERT INTO crop VALUES(\'" + crop_name +"\', \'" + water + "\', \'" + temp + "\', \'"+ light +"\', \'" + farm_name +"\')" ;
+						System.out.println(execute2);
+						try {
+							DB_connection.dbAccess(execute2);
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}		
 							
 					}	
 				}
@@ -159,12 +202,6 @@ public class Parser {
 			e.printStackTrace();
 		}		
 		
-		String execute = "";
-		try {
-			DB_connection.dbAccess(execute);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
 }
 }
