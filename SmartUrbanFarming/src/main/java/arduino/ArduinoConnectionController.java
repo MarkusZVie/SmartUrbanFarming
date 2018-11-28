@@ -121,7 +121,6 @@ public synchronized void close() {
  * Handle an event on the serial port. Read the data and print it.
  */
 public synchronized void serialEvent(SerialPortEvent oEvent) {
-	System.out.println("serial event");
 	if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 		try {
 			String inputLine=input.readLine();
