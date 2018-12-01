@@ -19,5 +19,6 @@
       <%String name = (String)request.getAttribute("log"); %>
 	  <%= name%>
       </div>
+     <a href="index.jsp"> Back to Start Page </a> 
 </body>
 </html>

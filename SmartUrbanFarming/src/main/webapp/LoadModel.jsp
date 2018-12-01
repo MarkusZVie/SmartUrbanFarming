@@ -12,7 +12,7 @@
          <br />
          <input type = "submit" value = "Upload File" />
       </form>
-      
+   <a href="index.jsp"> Back to Start Page </a>   
    </body>
    
 </html>
