@@ -24,3 +24,14 @@ farm_name VARCHAR(20),
 CONSTRAINT fk2 FOREIGN KEY (farm_name) REFERENCES farming_module(farm_name)
 );
 
+Create Table sensordata(
+farm_name		varchar(20),
+time_	timestamp, 
+humidity varchar(30)  ,
+temp 	varchar(30),
+light	varchar(30),
+hygro varchar(30),
+CONSTRAINT pk PRIMARY KEY (farm_name, time_)
+);
+
+

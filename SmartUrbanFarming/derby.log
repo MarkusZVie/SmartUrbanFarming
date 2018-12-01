@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Nov 18 14:32:07 CET 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0167-2705-705b-0000030ce408 
+Sat Dec 01 09:29:07 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0167-68e2-b638-0000032b6ae8 
 on database directory /Users/Beate/SmartUrbanFarming/SmartUrbanFarming/farming  with class loader sun.misc.Launcher$AppClassLoader@4e25154f 
 Loaded from file:/Users/Beate/.m2/repository/org/apache/derby/derby/10.8.3.0/derby-10.8.3.0.jar
 java.vendor=Oracle Corporation

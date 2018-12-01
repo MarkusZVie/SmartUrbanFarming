@@ -96,7 +96,7 @@ public class Parser {
 				String execute = "INSERT INTO location VALUES(\'" + loc_name +"\', \'" +city + "\', \'" + direction + "\', \'"+longitude +"\', \'" +latitude +"\')" ;
 				System.out.println(execute);
 				try {
-					DB_connection.dbAccess(execute);
+					DB_connection.dbExecute(execute);
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -139,7 +139,7 @@ public class Parser {
 					String execute1 = "INSERT INTO farming_module VALUES(\'" + farm_name +"\', \'" + length + "\', \'" + height + "\', \'"+ width +"\', \'" + loc_name +"\')" ;
 					System.out.println(execute1);
 					try {
-						DB_connection.dbAccess(execute1);
+						DB_connection.dbExecute(execute1);
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -181,14 +181,13 @@ public class Parser {
 						String execute2 = "INSERT INTO crop VALUES(\'" + crop_name +"\', \'" + water + "\', \'" + temp + "\', \'"+ light +"\', \'" + farm_name +"\')" ;
 						System.out.println(execute2);
 						try {
-							DB_connection.dbAccess(execute2);
+							DB_connection.dbExecute(execute2);
 						} catch (SQLException e) {
 							e.printStackTrace();
-						}		
-							
-					}	
+						}	
+						}
+						}	
 				}
-			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -201,7 +200,6 @@ public class Parser {
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}		
-		
-
-}
+	
+	}
 }
