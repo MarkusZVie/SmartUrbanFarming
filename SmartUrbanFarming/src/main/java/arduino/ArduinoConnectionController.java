@@ -124,6 +124,9 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 	if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 		try {
 			String inputLine=input.readLine();
+			if(inputLine.startsWith("<values>") && inputLine.endsWith("</values>") ) {
+				parseInputline(inputLine);
+			}
 			System.out.println(inputLine);
 			log.add(inputLine);
 		} catch (Exception e) {
@@ -131,6 +134,17 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 		}
 	}
 	// Ignore all the other eventTypes, but you should consider the other ones.
+}
+
+private void parseInputline(String inputLine) {
+	String[] values = inputLine.split(";");
+	System.out.println("0:"+values[0]);
+	float temperature = Float.parseFloat(values[1]);
+	float humidity = Float.parseFloat(values[2]);
+	int light = Integer.parseInt(values[3]);
+	int hygro =  Integer.parseInt(values[4]);
+	
+		
 }
 
 public synchronized void write(String s) {

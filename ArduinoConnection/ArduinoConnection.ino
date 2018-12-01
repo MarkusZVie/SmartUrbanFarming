@@ -128,10 +128,7 @@ void loop()
 		
 		Serial.println("<timeSinceStart>" + String((int)((millis()-startTime) / 1000L)) + "</timeSinceStart>");
 		Serial.println("<receivedThing>" + String(received) + " </receivedThing>");
-		Serial.println("<temperature>" + String(temperature) + " </temperature>" );
-		Serial.println("<humidity>" + String(humidity) + " </humidity>" );
-		Serial.println("<light>" + String(light) + " </light>" );
-		Serial.println("<hygro>" + String(hygro) + " </hygro>" );
+		Serial.println("<values>;" +  String(temperature) + ";" + String(humidity)+ ";" +  String(light) + ";" + String(hygro) + ";" + " </values>" );
 		
 	}
     if(Serial.available()){
