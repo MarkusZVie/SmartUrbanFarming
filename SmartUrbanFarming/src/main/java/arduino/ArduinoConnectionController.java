@@ -13,6 +13,7 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent; 
 import gnu.io.SerialPortEventListener;
+import model_parser.DB_connection;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -144,7 +145,7 @@ private void parseInputline(String inputLine) {
 	int light = Integer.parseInt(values[3]);
 	int hygro =  Integer.parseInt(values[4]);
 	
-		
+	//DB_connection.dbExecute(statement);	
 }
 
 public synchronized void write(String s) {
