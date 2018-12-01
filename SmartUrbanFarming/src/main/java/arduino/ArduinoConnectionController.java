@@ -145,7 +145,7 @@ private void parseInputline(String inputLine) {
 	int light = Integer.parseInt(values[3]);
 	int hygro =  Integer.parseInt(values[4]);
 	
-	//DB_connection.dbExecute(statement);	
+	DB_connection.dbSensors("Modul1", humidity+"", temperature+"", light+"", hygro+"");
 }
 
 public synchronized void write(String s) {
