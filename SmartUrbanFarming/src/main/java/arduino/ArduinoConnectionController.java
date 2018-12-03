@@ -1,6 +1,7 @@
 package arduino;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -8,6 +9,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.sql.SQLException;
 
 import gnu.io.CommPortIdentifier; 
 import gnu.io.SerialPort;
@@ -47,8 +49,11 @@ private static ArduinoConnectionController instance;
 
 private ArrayList<String> log;
 
+private int countSerialEvents;
+
 private ArduinoConnectionController() {
 	log=new ArrayList<String>();
+	countSerialEvents =0;
 	initialize();
 }
 
@@ -134,18 +139,34 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 			System.err.println(e.toString());
 		}
 	}
+	countSerialEvents ++;
+	System.out.println(countSerialEvents);
+	if(countSerialEvents >= 100) {
+		try {
+			DB_connection.exportToCSV("SELECT * FROM sensordata", "");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		countSerialEvents =0;
+	}
 	// Ignore all the other eventTypes, but you should consider the other ones.
 }
 
 private void parseInputline(String inputLine) {
 	String[] values = inputLine.split(";");
-	System.out.println("0:"+values[0]);
+	
 	float temperature = Float.parseFloat(values[1]);
 	float humidity = Float.parseFloat(values[2]);
 	int light = Integer.parseInt(values[3]);
 	int hygro =  Integer.parseInt(values[4]);
 	
 	DB_connection.dbSensors("Modul1", humidity+"", temperature+"", light+"", hygro+"");
+	
+	
 }
 
 public synchronized void write(String s) {

@@ -1,5 +1,8 @@
 package model_parser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -34,6 +37,56 @@ public class DB_connection {
 		}
 	}
 	
+	public static void exportToCSV (String statement, String path) throws SQLException, FileNotFoundException{
+		//source https://stackoverflow.com/questions/30073980/java-writing-strings-to-a-csv-file
+		String dbUrl = "jdbc:derby:farming;create=false";
+		conn = DriverManager.getConnection(dbUrl);
+		Statement stmt = conn.createStatement();
+		char seperator =';';
+		boolean isGermanCSV = true;
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			ResultSet rs = stmt.executeQuery(statement);
+			int columnsNumber = rs.getMetaData().getColumnCount();
+			
+			
+			//create header
+			for (int i = 1; i <= columnsNumber; i++) {
+				sb.append(rs.getMetaData().getColumnName(i) + seperator);
+			}
+			sb.append('\n');
+			
+			
+			while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           if(isGermanCSV) {
+			        	   columnValue=columnValue.replace('.', ',');
+			           }
+			           sb.append(columnValue + seperator);
+			       }
+			       sb.append('\n');
+			   }
+			
+			rs.close();
+			stmt.close();	
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(path.equals("")) {
+			path = "csvExport.csv";
+		}
+		
+		PrintWriter pw = new PrintWriter(new File(path));
+		pw.write(sb.toString());
+        pw.close();
+		
+	}
+	
 	public static String dbRead(String statement) throws SQLException {
 		String name = "";
 		String dbUrl = "jdbc:derby:farming;create=false";
@@ -41,13 +94,17 @@ public class DB_connection {
 		Statement stmt = conn.createStatement();
 		try {
 			ResultSet rs = stmt.executeQuery(statement);
-		
-			while (rs.next()) 
-			{
-				name = rs.getString(1);
-				System.out.println(name);
+			int columnsNumber = rs.getMetaData().getColumnCount();
 
-			}
+			while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(rs.getMetaData().getColumnName(i)+": " + columnValue);
+			       }
+			       System.out.println("");
+			   }
+			
 			rs.close();
 			stmt.close();	
 			}
