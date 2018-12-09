@@ -115,11 +115,11 @@ long startTime = millis();
 String received = "none";
 
 
-int timeIntervalForAVGRead = 50; // 50ms 
-int targetIntervalTime = 1000; //1 sec
+int timeIntervalForAVGRead = 20; // in ms
+int targetIntervalTime = 1000; // in ms
 int numberOfReads = targetIntervalTime/timeIntervalForAVGRead;
-int targetGeneralIntervalTIme = 10; // in sec
-int timeIntervalForGeneralMesure = (targetGeneralIntervalTIme*1000) - targetIntervalTime; // ReadInterval - AVG Mesure time  -> target 1-5 min
+int targetGeneralIntervalTIme = 10000; // in ms
+int timeIntervalForGeneralMesure = (targetGeneralIntervalTIme) - targetIntervalTime; // ReadInterval - AVG Mesure time  -> target 1-5 min
 
 void loop()
 {
@@ -134,35 +134,36 @@ void loop()
 		int finalLight = 0;
         int finalHygro = 0;
 		
+		//hum and temp are not avg
+		float temperature = 0;
+        float humidity = 0;
+        int err = SimpleDHTErrSuccess;
+        if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess)
+        {
+            Serial.print("Read DHT22 failed, err=");
+            Serial.println(err);
+            delay(2000);
+            temperature = -1;
+            humidity = -1;
+        }
+		
         for (int i = 0; i <= numberOfReads; i++)
         {
             delay(timeIntervalForAVGRead);
             // read sensors
-            float temperature = 0;
-            float humidity = 0;
-            int err = SimpleDHTErrSuccess;
-            if ((err = dht22.read2(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess)
-            {
-                Serial.print("Read DHT22 failed, err=");
-                Serial.println(err);
-                delay(2000);
-                temperature = -1;
-                humidity = -1;
-            }
+            
             int light = readLight();
             int hygro = readHygrometer();
 			
 			//sum the values upper_bound
-			finalTemperature += temperature;
-			finalHumidity += humidity;
 			finalLight += light;
 			finalHygro += hygro;
 			
         }
 		
 		//make the AVG out of the sum
-		finalTemperature = finalTemperature/numberOfReads;
-		finalHumidity = finalHumidity/numberOfReads;
+		finalTemperature = temperature;
+		finalHumidity = humidity;
 		finalLight = finalLight/numberOfReads;
 		finalHygro = finalHygro/numberOfReads;
 
@@ -213,6 +214,7 @@ void loop()
         Serial.println("<timeSinceStart>" + String((int)((millis() - startTime) / 1000L)) + "</timeSinceStart>"); //optional
         Serial.println("<receivedThing>" + String(received) + " </receivedThing>");//optional
         Serial.println("<values>;" + String(finalTemperature) + ";" + String(finalHumidity) + ";" + String(finalLightAdjustedPercent) + ";" + String(finalHygroAdjustedPercent) + ";" + "</values>");
+		delay(targetGeneralIntervalTIme);
     }
     if (Serial.available())
     {
@@ -223,5 +225,5 @@ void loop()
         exit(0);
     }
 	//wait N time before the next read
-	delay(timeIntervalForGeneralMesure);
+	
 }
