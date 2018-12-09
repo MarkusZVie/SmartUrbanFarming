@@ -132,15 +132,15 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 			String inputLine=input.readLine();
 			if(inputLine.startsWith("<values>") && inputLine.endsWith("</values>") ) {
 				parseInputline(inputLine);
+				log.add(inputLine);
 			}
 			System.out.println(inputLine);
-			log.add(inputLine);
+			
 		} catch (Exception e) {
 			System.err.println(e.toString());
 		}
 	}
 	countSerialEvents ++;
-	System.out.println(countSerialEvents);
 	if(countSerialEvents >= 100) {
 		try {
 			DB_connection.exportToCSV("SELECT * FROM sensordata", "");
@@ -160,9 +160,9 @@ private void parseInputline(String inputLine) {
 	String[] values = inputLine.split(";");
 	
 	float temperature = Float.parseFloat(values[1]);
-	float humidity = Float.parseFloat(values[2]);
-	int light = Integer.parseInt(values[3]);
-	int hygro =  Integer.parseInt(values[4]);
+	float humidity = Float.parseFloat(values[2])/100;
+	float light = Float.parseFloat(values[3])/100;
+	float hygro =  Float.parseFloat(values[4])/100;
 	
 	DB_connection.dbSensors("Modul1", humidity+"", temperature+"", light+"", hygro+"");
 	

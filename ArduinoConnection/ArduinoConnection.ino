@@ -184,7 +184,7 @@ void loop()
 		int hygroDiffrence = hygrometerMax-hygrometerMin;
 		finalHygroAdjusted = finalHygro-hygrometerMin; //set base line
 		finalHygroAdjusted = (finalHygroAdjusted - (hygrometerMax-hygrometerMin)) * (-1); //invers numbers
-		double finalHygroAdjustedPercent = (double)finalHygroAdjusted/(double)hygroDiffrence; //make it in %
+		double finalHygroAdjustedPercent = (double)(finalHygroAdjusted*100)/(double)hygroDiffrence; //make it in %
 		//light
 		int lightMax = 4600;
 		int lightMin = 0;
@@ -198,7 +198,7 @@ void loop()
 		int lightDiffrence = lightMax-lightMin;
 		
 		
-		double finalLightAdjustedPercent = (double)finalLightAdjusted/(double)lightDiffrence; //make it in %
+		double finalLightAdjustedPercent = (double)(finalLightAdjusted*100)/(double)lightDiffrence; //make it in %
 		//make Display Output
         display.clear();
 

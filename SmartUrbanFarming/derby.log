@@ -1,7 +1,6 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Mon Dec 03 10:30:04 CET 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0167-7367-3994-00000a9f2a90 
+Sun Dec 09 11:59:33 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0167-929f-5070-000009151cc8 
 on database directory C:\Users\Lezard\Documents\git\SmartUrbanFarming\SmartUrbanFarming\SmartUrbanFarming\farming  with class loader WebappClassLoader
   context: /SmartUrbanFarming
   delegate: false
@@ -16,17 +15,5 @@ user.dir=C:\Users\Lezard\Documents\git\SmartUrbanFarming\SmartUrbanFarming\Smart
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-=======
-Mon Dec 03 08:18:08 CET 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0167-72ee-6f4c-0000032b55e0 
-on database directory /Users/Beate/SmartUrbanFarming/SmartUrbanFarming/farming  with class loader sun.misc.Launcher$AppClassLoader@4e25154f 
-Loaded from file:/Users/Beate/.m2/repository/org/apache/derby/derby/10.8.3.0/derby-10.8.3.0.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_144-b01
-user.dir=/Users/Beate/SmartUrbanFarming/SmartUrbanFarming
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.13.2
->>>>>>> 122b49c496478ebb4871b96c461b0fa411dd6bc6
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
