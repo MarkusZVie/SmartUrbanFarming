@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class DB_connection {
 	static Connection conn;
@@ -35,6 +36,45 @@ public class DB_connection {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static ArrayList<String[]> getSensorData(){
+		ArrayList<String[]> returnList = new ArrayList<String[]>();
+		
+		try {
+			String dbUrl = "jdbc:derby:farming;create=false";
+			conn = DriverManager.getConnection(dbUrl);
+			Statement stmt = conn.createStatement();		
+		
+			ResultSet rs = stmt.executeQuery("SELECT * FROM sensordata");
+			int columnsNumber = rs.getMetaData().getColumnCount();
+			
+			
+			//create header
+			String[] header = new String[columnsNumber];
+			for (int i = 0; i < columnsNumber; i++) {
+				header[i] = rs.getMetaData().getColumnName(i+1);
+			}
+			returnList.add(header);
+			
+			//create data
+			while (rs.next()) {
+				String[] valueI = new String[columnsNumber];
+				for (int i = 0; i < columnsNumber; i++) {
+					valueI[i] = rs.getString(i+1);
+				}
+				returnList.add(valueI); 
+			}
+			rs.close();
+			stmt.close();	
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return returnList;
+		
 	}
 	
 	public static void exportToCSV (String statement, String path) throws SQLException, FileNotFoundException{
@@ -112,5 +152,18 @@ public class DB_connection {
 			e.printStackTrace();
 		}
 		return name;
+	}
+	
+	public static void deleteSensorData() {
+		try {
+			String dbUrl = "jdbc:derby:farming;create=false";
+			conn = DriverManager.getConnection(dbUrl);
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM sensordata");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
 	}
 }

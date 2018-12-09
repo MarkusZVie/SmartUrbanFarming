@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import arduino.ArduinoConnectionController;
+import model_parser.DB_connection;
 import ruleManagement.RuleManager;
 
 /**
@@ -32,6 +33,7 @@ public class ServerStartUp extends HttpServlet {
           
           //Arduino give him IP
           ArduinoConnectionController.getInstance().writeWithIPAdress(" Server has started");
+          
     }
     
 	
