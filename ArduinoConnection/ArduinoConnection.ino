@@ -169,7 +169,7 @@ void loop()
 
 		//adjust analog Read
 		//hygrometer
-		int hygrometerMax = 3900;
+		int hygrometerMax = 4180;
 		int hygrometerMin = 1200;
 		//hygrometer low value is wet (high %) high value is dry (low %)
 		
@@ -202,6 +202,12 @@ void loop()
 		//make Display Output
         display.clear();
 
+        if(finalHygroAdjustedPercent>100.0){
+          finalHygroAdjustedPercent = 100.0;
+        }
+        if(finalLightAdjustedPercent>100.0){
+          finalLightAdjustedPercent= 100.0;
+        }
         writeText("(secStart:"+String((int)((millis() - startTime) / 1000L)) + ")" 
             + " (temp:" + String(finalTemperature) + "°C)" 
 			+ " (humi:" + String(finalHumidity) + "%)" 
