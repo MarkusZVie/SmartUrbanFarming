@@ -23,6 +23,14 @@
   	<description></description>
   	<servlet-class>servlets.ArduinoControl</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>NotificationSettings</servlet-name>
+  	<display-name>NotificationSettings</display-name>
+  	<description></description>
+  	<servlet-class>servlets.NotificationSettings</servlet-class>
+  </servlet>
+ 
+  
   <servlet-mapping>
   	<servlet-name>UploadFileHandler</servlet-name>
   	<url-pattern>/UploadFileHandler</url-pattern>
@@ -34,5 +42,9 @@
   <servlet-mapping>
   	<servlet-name>ArduinoControl</servlet-name>
   	<url-pattern>/ArduinoControl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>NotificationSettings</servlet-name>
+  	<url-pattern>/NotificationSettings</url-pattern>
   </servlet-mapping>
 </web-app>

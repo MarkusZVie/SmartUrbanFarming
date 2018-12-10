@@ -16,6 +16,7 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent; 
 import gnu.io.SerialPortEventListener;
 import model_parser.DB_connection;
+import ruleManagement.RuleManager;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -165,7 +166,10 @@ private void parseInputline(String inputLine) {
 	float hygro =  Float.parseFloat(values[4])/100;
 	
 	DB_connection.dbSensors("Modul1", humidity+"", temperature+"", light+"", hygro+"");
-	
+	RuleManager.getInstance().addFactToFactase("humidity", humidity);
+	RuleManager.getInstance().addFactToFactase("temperature", humidity);
+	RuleManager.getInstance().addFactToFactase("light", light);
+	RuleManager.getInstance().addFactToFactase("hygro", hygro);
 	
 }
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import arduino.ArduinoConnectionController;
 import model_parser.DB_connection;
+import ruleManagement.PersistenceRBSThread;
 import ruleManagement.RuleManager;
 
 /**
@@ -27,8 +28,8 @@ public class ServerStartUp extends HttpServlet {
     public void init() throws ServletException
     {
           System.out.println("DEVELOP MODE In this Class: "+this.getClass() +" Her can we call function Threads by Start Server");
-          RuleManager rm = new RuleManager();
-          rm.fireRules();
+          PersistenceRBSThread t = new PersistenceRBSThread();
+          t.start();
           
           
           //Arduino give him IP
