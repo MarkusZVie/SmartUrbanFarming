@@ -27,7 +27,7 @@ public class DB_connection {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try {	
 			if(farm_name== null | farm_name.isEmpty()){
-				farm_name = dbRead("select * from farming_module");
+				farm_name = printDb("select * from farming_module");
 			}
 			String input = "insert into sensordata values('" + farm_name + "','" + timestamp + "','" + humidity +"','" + temp + "','" + light + "','" + hygro + "')";
 			dbExecute(input);
@@ -127,7 +127,41 @@ public class DB_connection {
 		
 	}
 	
-	public static String dbRead(String statement) throws SQLException {
+	public static ArrayList<ArrayList<String>> readDB(String statement) throws SQLException {
+		ArrayList<ArrayList<String>> mainList = new ArrayList<ArrayList<String>>();
+		String dbUrl = "jdbc:derby:farming;create=false";
+		conn = DriverManager.getConnection(dbUrl);
+		Statement stmt = conn.createStatement();
+		try {
+			ResultSet rs = stmt.executeQuery(statement);
+			int columnsNumber = rs.getMetaData().getColumnCount();
+
+			ArrayList<String> header= new ArrayList<String>();
+			//create header
+			for (int i = 1; i <= columnsNumber; i++) {
+				header.add(rs.getMetaData().getColumnName(i));
+			}
+			
+			
+			while (rs.next()) {
+				ArrayList<String> row = new ArrayList<String>();
+			       for (int i = 1; i <= columnsNumber; i++) {
+			    	   row.add(rs.getString(i));
+			       }
+			       mainList.add(row);
+			   }
+			
+			rs.close();
+			stmt.close();	
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mainList;
+	}
+	
+	
+	public static String printDb(String statement) throws SQLException {
 		String name = "";
 		String dbUrl = "jdbc:derby:farming;create=false";
 		conn = DriverManager.getConnection(dbUrl);

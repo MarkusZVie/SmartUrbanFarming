@@ -4,7 +4,7 @@
 <a href="LoadModel.jsp"> Load New Model </a> <br>
 <a href="ArduinoControl.jsp"> Control Arduino </a> <br>
 <a href="SensorMonitor.jsp"> Sensor Monitor </a> <br>
-<a href="NotificationSettings.jsp"> Sensor Monitor </a> <br>
+<a href="NotificationSettings.jsp"> NotificationSettings </a> <br>
 
 </body>
 </html>

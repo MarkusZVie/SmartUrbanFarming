@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import arduino.ArduinoConnectionController;
 import model_parser.DB_connection;
+import ruleManagement.PersistenceFactReasoningThread;
 import ruleManagement.PersistenceRBSThread;
 import ruleManagement.RuleManager;
 
@@ -30,6 +31,8 @@ public class ServerStartUp extends HttpServlet {
           System.out.println("DEVELOP MODE In this Class: "+this.getClass() +" Her can we call function Threads by Start Server");
           PersistenceRBSThread t = new PersistenceRBSThread();
           t.start();
+          PersistenceFactReasoningThread t2 = new PersistenceFactReasoningThread();
+          t2.start();
           
           
           //Arduino give him IP

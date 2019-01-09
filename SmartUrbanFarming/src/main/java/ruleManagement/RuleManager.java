@@ -43,6 +43,9 @@ public class RuleManager {
 	
 	//add fact
 	public synchronized void addFactToFactase(String name, Object factvalue ) {
+		if(factList == null) {
+			factList = new ArrayList<String>();
+		}
 		if(!factList.contains(name)) {
 			factList.add(name);
 		}
