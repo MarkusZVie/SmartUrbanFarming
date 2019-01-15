@@ -39,6 +39,8 @@ public class PersistenceFactReasoningThread extends Thread{
 	public void run() {
 		System.out.println("PersistenceFactReasoningThread Started");
 		while(runs) {
+			getCropInformations();
+			calcStartOfMonitoringFact();
 			calcShortTermLightFact();
 			calcMiddleTermLightFact();
 			calcLongTermLightFact();
@@ -53,6 +55,48 @@ public class PersistenceFactReasoningThread extends Thread{
 	}
 
 
+	private void getCropInformations() {
+		ArrayList<ArrayList<String>> cropInfos = new ArrayList<ArrayList<String>>();
+		
+		try {
+			cropInfos = DB_connection.readDB(""
+					+ "SELECT * "
+					+ "FROM crop ");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		for(ArrayList<String> row: cropInfos) {
+			rm.addFactToFactase("Crop.WATER."+row.get(0), row.get(1));
+			rm.addFactToFactase("Crop.TEMP."+row.get(0), row.get(2));
+			rm.addFactToFactase("Crop.LIGHT."+row.get(0), row.get(3));
+			rm.addFactToFactase("Crop.MODULE."+row.get(0), row.get(4));
+			
+		}
+		
+	}
+
+
+	private void calcStartOfMonitoringFact() {
+
+		ArrayList<ArrayList<String>> minTime = new ArrayList<ArrayList<String>>();
+		
+		try {
+			minTime = DB_connection.readDB(""
+					+ "SELECT MIN(TIME_) "
+					+ "FROM sensordata "
+					+ "WHERE FARM_NAME LIKE 'Modul1'");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		rm.addFactToFactase("StartOfMonitoring", (minTime.get(0).get(0)));		
+	}
+
+
 	private void calcLongTermLightFact() {
 		//get Data
 		ArrayList<ArrayList<String>> lightSensorData = new ArrayList<ArrayList<String>>();
@@ -62,16 +106,30 @@ public class PersistenceFactReasoningThread extends Thread{
 						
 			
 			locationModule = DB_connection.readDB(""
-					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME "
-					+ "WHERE FARM_NAME LIKE 'Farming Module-29409'");
+					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME ");
 			
+			
+			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
+			Date calcBeginDate = new Date(System.currentTimeMillis()/1000-24*60*60*31);
+			Date choosenDate = new Date();
+			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
+				choosenDate = startOfMeasurements;
+				rm.addFactToFactase("LongTermTimeAdjusted", "true");
+			}else {
+				choosenDate = calcBeginDate;
+				rm.addFactToFactase("LongTermTimeAdjusted", "false");
+			}
+						
 			lightSensorData = DB_connection.readDB(""
 					+ "SELECT LIGHT, TIME_ "
 					+ "FROM sensordata "
-					+ "WHERE TIME_>= '" + sdf.format(new Date(System.currentTimeMillis()/1000-24*60*60*31)) + "'"
+					+ "WHERE TIME_>= '" + sdf.format(choosenDate) + "'"
 					+ "AND FARM_NAME LIKE 'Modul1'");
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -80,7 +138,7 @@ public class PersistenceFactReasoningThread extends Thread{
 		ArrayList<String> lightFacts = calcLightFacts(lightSensorData,locationModule,31);
 		for(int i=0; i<lightFacts.size();) {
 			String factName = "LongTerm"+lightFacts.get(i++);
-			String factvalue = lightFacts.get(i++);
+			Float factvalue = Float.parseFloat(lightFacts.get(i++));
 			rm.addFactToFactase(factName, factvalue);
 		}
 		
@@ -96,16 +154,31 @@ public class PersistenceFactReasoningThread extends Thread{
 						
 			
 			locationModule = DB_connection.readDB(""
-					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME "
-					+ "WHERE FARM_NAME LIKE 'Farming Module-29409'");
+					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME ");
+			
+			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
+			Date calcBeginDate = new Date(System.currentTimeMillis()-24*60*60*1000*7);
+			Date choosenDate = new Date();
+			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
+				choosenDate = startOfMeasurements;
+				rm.addFactToFactase("MiddletTermTimeAdjusted", "true");
+			}else {
+				choosenDate = calcBeginDate;
+				rm.addFactToFactase("MiddletTermTimeAdjusted", "false");
+			}
+				
+			
 			
 			lightSensorData = DB_connection.readDB(""
 					+ "SELECT LIGHT, TIME_ "
 					+ "FROM sensordata "
-					+ "WHERE TIME_>= '" + sdf.format(new Date(System.currentTimeMillis()-24*60*60*1000*7)) + "'"
+					+ "WHERE TIME_>= '" + sdf.format(choosenDate) + "'"
 					+ "AND FARM_NAME LIKE 'Modul1'");
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -113,7 +186,7 @@ public class PersistenceFactReasoningThread extends Thread{
 		ArrayList<String> lightFacts = calcLightFacts(lightSensorData,locationModule,7);
 		for(int i=0; i<lightFacts.size();) {
 			String factName = "MiddletTerm"+lightFacts.get(i++);
-			String factvalue = lightFacts.get(i++);
+			Float factvalue = Float.parseFloat(lightFacts.get(i++));
 			rm.addFactToFactase(factName, factvalue);
 		}
 		
@@ -131,16 +204,30 @@ public class PersistenceFactReasoningThread extends Thread{
 						
 			
 			locationModule = DB_connection.readDB(""
-					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME "
-					+ "WHERE FARM_NAME LIKE 'Farming Module-29409'");
+					+ "SELECT CITY, LONG, LAT FROM location INNER JOIN farming_module ON farming_module.LOC_NAME = location.LOC_NAME ");
+			
+			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
+			Date calcBeginDate = new Date(System.currentTimeMillis()-24*60*60*1000);
+			Date choosenDate = new Date();
+			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
+				choosenDate = startOfMeasurements;
+				rm.addFactToFactase("ShortTermTimeAdjusted", "true");
+			}else {
+				choosenDate = calcBeginDate;
+				rm.addFactToFactase("ShortTermTimeAdjusted", "false");
+			}
+				
 			
 			lightSensorData = DB_connection.readDB(""
 					+ "SELECT LIGHT, TIME_ "
 					+ "FROM sensordata "
-					+ "WHERE TIME_>= '" + sdf.format(new Date(System.currentTimeMillis()-24*60*60*1000)) + "'"
+					+ "WHERE TIME_>= '" + sdf.format(choosenDate) + "'"
 					+ "AND FARM_NAME LIKE 'Modul1'");
 			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -149,7 +236,7 @@ public class PersistenceFactReasoningThread extends Thread{
 		ArrayList<String> lightFacts = calcLightFacts(lightSensorData,locationModule,1);
 		for(int i=0; i<lightFacts.size();) {
 			String factName = "ShortTerm"+lightFacts.get(i++);
-			String factvalue = lightFacts.get(i++);
+			Float factvalue = Float.parseFloat(lightFacts.get(i++));
 			rm.addFactToFactase(factName, factvalue);
 		}
 		

@@ -1,12 +1,16 @@
 package ruleManagement;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
 
+import Messages.Message;
+import Messages.NotificationHandler;
+import rules.SensorMeasurementsShortTerm;
 import rules.TestRule;
 
 public class RuleManager {
@@ -38,6 +42,7 @@ public class RuleManager {
 	//all relevant rules should be registerd here
 	private void registerRules() {
 		rulebase.register(new TestRule()); //this is for later remove
+		rulebase.register(new SensorMeasurementsShortTerm()); //this is for later remove
 		
 	}
 	
@@ -63,5 +68,20 @@ public class RuleManager {
 	public synchronized void fireRules(){
         rulesEngine.fire(rulebase, factbase);
 		
+	}
+	
+	public String getFact(String factName) {
+		return factbase.get(factName).toString();
+	
+	}
+	public ArrayList<String> getFactNamesThatStartsWith(String prefix){
+		ArrayList<String> returnList = new ArrayList<String>();
+		for(String s : factList) {
+			if(s.startsWith(prefix)) {
+				returnList.add(s);
+			}
+		}
+		
+		return returnList;
 	}
 }
