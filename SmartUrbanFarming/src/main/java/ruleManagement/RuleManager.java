@@ -10,8 +10,14 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 
 import Messages.Message;
 import Messages.NotificationHandler;
+import rules.LightSensorLongTermTooLow;
+import rules.LightSensorMiddleTermTooLow;
+import rules.LightSensorShortTermTooLow;
+import rules.SensorMeasurementsLongTerm;
+import rules.SensorMeasurementsMiddleTerm;
 import rules.SensorMeasurementsShortTerm;
 import rules.TestRule;
+import rules.TestThing;
 
 public class RuleManager {
 	
@@ -42,7 +48,14 @@ public class RuleManager {
 	//all relevant rules should be registerd here
 	private void registerRules() {
 		rulebase.register(new TestRule()); //this is for later remove
+		
 		rulebase.register(new SensorMeasurementsShortTerm()); //this is for later remove
+		rulebase.register(new SensorMeasurementsMiddleTerm());
+		rulebase.register(new SensorMeasurementsLongTerm());
+		rulebase.register(new LightSensorShortTermTooLow());
+		rulebase.register(new LightSensorMiddleTermTooLow());
+		rulebase.register(new LightSensorLongTermTooLow());
+		
 		
 	}
 	
@@ -67,6 +80,26 @@ public class RuleManager {
 	
 	public synchronized void fireRules(){
         rulesEngine.fire(rulebase, factbase);
+        /*
+        TestThing t = new TestThing();
+        if(t.when((float)0.20655714, (float)-0.793368)) {
+        	try {
+				t.then();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else {
+        	try {
+				t.then();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        */
+        System.out.println(NotificationHandler.getInstance().printAllActiveMessages());
+        
 		
 	}
 	
@@ -84,4 +117,20 @@ public class RuleManager {
 		
 		return returnList;
 	}
+	public ArrayList<String> getFactNamesThatContainsThis(ArrayList<String> al){
+		ArrayList<String> returnList = new ArrayList<String>();
+		for(String s : factList) {
+			boolean shouldBeAdded = true;
+			for(String ss : al) {
+				if(!s.contains(ss)) {
+					shouldBeAdded = false;
+				}
+			}
+			if(shouldBeAdded) {
+				returnList.add(s);
+			}
+		}
+		return returnList;
+	}
+	
 }

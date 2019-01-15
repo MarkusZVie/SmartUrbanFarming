@@ -12,12 +12,12 @@ import Messages.Message;
 import Messages.NotificationHandler;
 import ruleManagement.RuleManager;
 
-@Rule(name = "LightSensorShortTermTooLow", description = "Create Message Light Shortterm depending")
-public class LightSensorShortTermTooLow {
+@Rule(name = "LightSensorMiddleTermTooLow", description = "Create Message Light Middleterm depending")
+public class LightSensorMiddleTermTooLow {
 	
-	private final String ruleName = "LightSensorShortTermTooLow";
-	private final String factName1 = "ShortTermsimplyAVG";
-	private final String factName2 = "ShortTermdifferenceAgainstExpectetLight";
+	private final String ruleName = "LightSensorMiddleTermTooLow";
+	private final String factName1 = "MiddletTermsimplyAVG";
+	private final String factName2 = "MiddletTermdifferenceAgainstExpectetLight";
 	private final double lowMinimumValue = -0.5;
 	private final double mediumMinimumValue = -0.4;
 	private final double highMinimumValue = -0.3;
@@ -89,24 +89,24 @@ public class LightSensorShortTermTooLow {
 			String cropID = s.substring(s.lastIndexOf('.')+1);
 			newCrop.add(cropID);
 			newCrop.add(rm.getFact("Crop.LIGHT."+cropID));
-			newCrop.add(rm.getFact("ShortTermsimplyAVG"));
-			newCrop.add(rm.getFact("ShortTermdifferenceAgainstExpectetLight"));
+			newCrop.add(rm.getFact(factName1));
+			newCrop.add(rm.getFact(factName2));
 			
 			
 			cropInformationList.add(newCrop);
 		}
 		
 		for(ArrayList<String> cropAttributes: cropInformationList) {
-			String subject = "Heute war weniger Licht als erwartet";
+			String subject = "Diese Woche war weniger Licht als erwartet";
 			String message ="";
 			if(cropAttributes.get(1).equals("low")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-lowMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte diese Woche jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-lowMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			if(cropAttributes.get(1).equals("medium")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-mediumMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte diese Woche jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-mediumMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			if(cropAttributes.get(1).equals("high")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-highMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte diese Woche jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-highMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			
 			Message m = new Message(new Date(), subject, message, ruleName);

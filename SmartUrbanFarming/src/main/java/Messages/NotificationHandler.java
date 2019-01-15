@@ -63,5 +63,12 @@ public class NotificationHandler {
 	public void addActiveMessage(Message m) {
 		activeMessages.add(m);
 	}
+	public String printAllActiveMessages() {
+		StringBuilder sb = new StringBuilder();
+		for(Message m:activeMessages) {
+			sb.append(m.toString()+"\n\n");
+		}
+		return sb.toString();
+	}
 	
 }

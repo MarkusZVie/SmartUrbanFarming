@@ -49,12 +49,19 @@ public class SensorMeasurementsMiddleTerm {
 		
 		String subject = "Diese Woche signifikant weniger Sensordaten als erwartet";
 		String message = "";
+		String number = "";
+		if(Float.parseFloat(rm.getFact(factName))*100<0) {
+			number="< 1";
+		}else {
+			double n = (Float.parseFloat(rm.getFact(factName))*100);
+			number =  n +"";
+		}
 		if(Boolean.parseBoolean(rm.getFact("MiddletTermTimeAdjusted")))
 		{
-			message="Seit Beginn der Messungen am " + rm.getFact("StartOfMonitoring") +" wurden nur "+ Float.parseFloat(rm.getFact(factName))*100 +" % der Messungen durchgeführt. \n"
+			message="Seit Beginn der Messungen am " + rm.getFact("StartOfMonitoring") +" wurden nur "+ number +" % der Messungen durchgeführt. \n"
 					+ "Aufgrund von einer geringeren Datenmenge sind die Vorhersagen und Einschätzungen über den Status des Moduls nicht so exakt. ";
 		}else {
-			message="Seit letzer Woche wurden nur "+ Float.parseFloat(rm.getFact(factName))*100 +" % der Messungen durchgeführt. \n"
+			message="Seit letzer Woche wurden nur "+ number +" % der Messungen durchgeführt. \n"
 					+ "Aufgrund von einer geringeren Datenmenge sind die Vorhersagen und Einschätzungen über den Status des Moduls nicht so exakt. ";
 			
 		}
