@@ -12,16 +12,15 @@ import Messages.Message;
 import Messages.NotificationHandler;
 import ruleManagement.RuleManager;
 
-@Rule(name = "LightSensorShortTermTooLow", description = "Create Message Light Shortterm depending")
-public class LightSensorShortTermTooLow {
+@Rule(name = "LightSensorLongTermTooHigh", description = "Create Message Light Longterm depending")
+public class LightSensorLongTermTooHigh {
 	
-	private final String ruleName = "LightSensorShortTermTooLow";
-	private final String factName1 = "ShortTermsimplyAVG";
-	private final String factName2 = "ShortTermdifferenceAgainstExpectetLight";
-	private final double lowMinimumValue = RulePreferences.getInstance().getLightlowMinimumValue();
-	private final double mediumMinimumValue = RulePreferences.getInstance().getLightmediumMinimumValue();
-	private final double highMinimumValue = RulePreferences.getInstance().getLighthighMinimumValue();
-	
+	private final String ruleName = "LightSensorLongTermTooHigh";
+	private final String factName1 = "LongTermsimplyAVG";
+	private final String factName2 = "LongTermdifferenceAgainstExpectetLight";
+	private final double lowMaximumValue = RulePreferences.getInstance().getLightlowMaximumValue();
+	private final double mediumMaximumValue = RulePreferences.getInstance().getLightmediumMaximumValue();
+	private final double highMaximumValue = RulePreferences.getInstance().getLighthighMaximumValue();
 	
 	@Condition
     public boolean when(@Fact(factName1) float avg, @Fact(factName2) float elight) {
@@ -40,21 +39,21 @@ public class LightSensorShortTermTooLow {
 		}
 		
 		if(highestValue.equals("low")) {
-			if(elight<lowMinimumValue) {
-				returnValue=  true;//send message
+			if(elight>lowMaximumValue) {
+				returnValue=  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("medium")) {
-			if(elight<mediumMinimumValue) {
+			if(elight>mediumMaximumValue) {
 				returnValue =  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("high")) {
-			if(elight<highMinimumValue) {
+			if(elight>highMaximumValue) {
 				returnValue = true;
 			}else {
 				returnValue = false;
@@ -90,24 +89,24 @@ public class LightSensorShortTermTooLow {
 			String cropID = s.substring(s.lastIndexOf('.')+1);
 			newCrop.add(cropID);
 			newCrop.add(rm.getFact("Crop.LIGHT."+cropID));
-			newCrop.add(rm.getFact("ShortTermsimplyAVG"));
-			newCrop.add(rm.getFact("ShortTermdifferenceAgainstExpectetLight"));
+			newCrop.add(rm.getFact(factName1));
+			newCrop.add(rm.getFact(factName2));
 			
 			
 			cropInformationList.add(newCrop);
 		}
 		
 		for(ArrayList<String> cropAttributes: cropInformationList) {
-			String subject = "Heute war weniger Licht als erwartet";
+			String subject = "Dieses Monat war weniger Licht als erwartet";
 			String message ="";
 			if(cropAttributes.get(1).equals("low")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-lowMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte dieses Monat jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-lowMaximumValue)*100+" % mehr licht als maximal zulässig (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % mehr als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			if(cropAttributes.get(1).equals("medium")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-mediumMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte dieses Monat jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-mediumMaximumValue)*100+" % mehr licht als maximal zulässig  (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % mehr als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			if(cropAttributes.get(1).equals("high")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte heute jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-highMinimumValue)*100+" % weniger licht als minderst erforderlich (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % weniger als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Licht Verträglichkeit von '"+cropAttributes.get(1)+"' hatte dieses Monat jedoch "+(Double.parseDouble(cropAttributes.get(3)+"")-highMaximumValue)*100+" % mehr licht als maximal zulässig  (insgesamt "+((Double.parseDouble(cropAttributes.get(3)+""))*100)*(-1)+" % mehr als erwartet) und einen eine Durchschnitts Belichtung von "+cropAttributes.get(2)+".";
 			}
 			
 			Message m = new Message(new Date(), subject, message, ruleName);

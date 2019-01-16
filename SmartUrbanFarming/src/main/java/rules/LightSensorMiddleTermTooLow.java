@@ -17,10 +17,11 @@ public class LightSensorMiddleTermTooLow {
 	
 	private final String ruleName = "LightSensorMiddleTermTooLow";
 	private final String factName1 = "MiddletTermsimplyAVG";
-	private final String factName2 = "MiddletTermdifferenceAgainstExpectetLight";
-	private final double lowMinimumValue = -0.5;
-	private final double mediumMinimumValue = -0.4;
-	private final double highMinimumValue = -0.3;
+	private final String factName2 = "MiddletTermdifferenceAgainstExpectetLight";	
+	private final double lowMinimumValue = RulePreferences.getInstance().getLightlowMinimumValue();
+	private final double mediumMinimumValue = RulePreferences.getInstance().getLightmediumMinimumValue();
+	private final double highMinimumValue = RulePreferences.getInstance().getLighthighMinimumValue();
+	
 	
 	@Condition
     public boolean when(@Fact(factName1) float avg, @Fact(factName2) float elight) {
@@ -39,21 +40,21 @@ public class LightSensorMiddleTermTooLow {
 		}
 		
 		if(highestValue.equals("low")) {
-			if(elight>lowMinimumValue) {
+			if(elight<lowMinimumValue) {
 				returnValue=  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("medium")) {
-			if(elight>mediumMinimumValue) {
+			if(elight<mediumMinimumValue) {
 				returnValue =  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("high")) {
-			if(elight>highMinimumValue) {
+			if(elight<highMinimumValue) {
 				returnValue = true;
 			}else {
 				returnValue = false;

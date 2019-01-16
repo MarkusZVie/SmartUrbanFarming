@@ -72,7 +72,8 @@ public class Message {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Erstell Datum: " + sdf.format(creationDate) + "\n");
 		sb.append("Betreff: " + subject + "\n");
-		sb.append("Message:" + "\n" + message);
+		sb.append("Message:"  + message+ "\n");
+		sb.append("Fact:" + relatedFact+ "\n");
 
 		return sb.toString();
 	}

@@ -18,9 +18,9 @@ public class LightSensorLongTermTooLow {
 	private final String ruleName = "LightSensorLongTermTooLow";
 	private final String factName1 = "LongTermsimplyAVG";
 	private final String factName2 = "LongTermdifferenceAgainstExpectetLight";
-	private final double lowMinimumValue = -0.5;
-	private final double mediumMinimumValue = -0.4;
-	private final double highMinimumValue = -0.3;
+	private final double lowMinimumValue = RulePreferences.getInstance().getLightlowMinimumValue();
+	private final double mediumMinimumValue = RulePreferences.getInstance().getLightmediumMinimumValue();
+	private final double highMinimumValue = RulePreferences.getInstance().getLighthighMinimumValue();
 	
 	@Condition
     public boolean when(@Fact(factName1) float avg, @Fact(factName2) float elight) {
@@ -39,21 +39,21 @@ public class LightSensorLongTermTooLow {
 		}
 		
 		if(highestValue.equals("low")) {
-			if(elight>lowMinimumValue) {
+			if(elight<lowMinimumValue) {
 				returnValue=  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("medium")) {
-			if(elight>mediumMinimumValue) {
+			if(elight<mediumMinimumValue) {
 				returnValue =  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("high")) {
-			if(elight>highMinimumValue) {
+			if(elight<highMinimumValue) {
 				returnValue = true;
 			}else {
 				returnValue = false;

@@ -10,8 +10,11 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 
 import Messages.Message;
 import Messages.NotificationHandler;
+import rules.LightSensorLongTermTooHigh;
 import rules.LightSensorLongTermTooLow;
+import rules.LightSensorMiddleTermTooHigh;
 import rules.LightSensorMiddleTermTooLow;
+import rules.LightSensorShortTermTooHigh;
 import rules.LightSensorShortTermTooLow;
 import rules.SensorMeasurementsLongTerm;
 import rules.SensorMeasurementsMiddleTerm;
@@ -55,6 +58,9 @@ public class RuleManager {
 		rulebase.register(new LightSensorShortTermTooLow());
 		rulebase.register(new LightSensorMiddleTermTooLow());
 		rulebase.register(new LightSensorLongTermTooLow());
+		rulebase.register(new LightSensorLongTermTooHigh());
+		rulebase.register(new LightSensorMiddleTermTooHigh());
+		rulebase.register(new LightSensorShortTermTooHigh());
 		
 		
 	}
