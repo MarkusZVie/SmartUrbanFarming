@@ -152,7 +152,7 @@ public class RulePreferences {
 		return tempMediumMaxValue ;
 	}
 
-	public double getTemphHighMaxValue() {
+	public double getTempHighMaxValue() {
 		return tempHighMaxValue ;
 	}	
 	
