@@ -128,6 +128,10 @@ public class RuleManager {
 		return factbase.get(factName).toString();
 	
 	}
+	public ArrayList<String> getFactList(){
+		return factList;
+	}
+	
 	public ArrayList<String> getFactNamesThatStartsWith(String prefix){
 		ArrayList<String> returnList = new ArrayList<String>();
 		for(String s : factList) {
