@@ -70,5 +70,15 @@ public class NotificationHandler {
 		}
 		return sb.toString();
 	}
+
+
+	public ArrayList<Message> getActiveMessages() {
+		return activeMessages;
+	}
+
+
+	public ArrayList<Message> getClosedMessages() {
+		return closedMessages;
+	}
 	
 }
