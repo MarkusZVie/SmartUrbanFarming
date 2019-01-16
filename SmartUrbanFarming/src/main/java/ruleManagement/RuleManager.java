@@ -10,6 +10,12 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 
 import Messages.Message;
 import Messages.NotificationHandler;
+import rules.HygroSensorLongTermTooHigh;
+import rules.HygroSensorLongTermTooLow;
+import rules.HygroSensorMiddleTermTooHigh;
+import rules.HygroSensorMiddleTermTooLow;
+import rules.HygroSensorShortTermTooHigh;
+import rules.HygroSensorShortTermTooLow;
 import rules.LightSensorLongTermTooHigh;
 import rules.LightSensorLongTermTooLow;
 import rules.LightSensorMiddleTermTooHigh;
@@ -20,7 +26,6 @@ import rules.SensorMeasurementsLongTerm;
 import rules.SensorMeasurementsMiddleTerm;
 import rules.SensorMeasurementsShortTerm;
 import rules.TestRule;
-import rules.TestThing;
 
 public class RuleManager {
 	
@@ -55,12 +60,22 @@ public class RuleManager {
 		rulebase.register(new SensorMeasurementsShortTerm()); //this is for later remove
 		rulebase.register(new SensorMeasurementsMiddleTerm());
 		rulebase.register(new SensorMeasurementsLongTerm());
+		
 		rulebase.register(new LightSensorShortTermTooLow());
 		rulebase.register(new LightSensorMiddleTermTooLow());
 		rulebase.register(new LightSensorLongTermTooLow());
 		rulebase.register(new LightSensorLongTermTooHigh());
 		rulebase.register(new LightSensorMiddleTermTooHigh());
 		rulebase.register(new LightSensorShortTermTooHigh());
+		
+		rulebase.register(new HygroSensorLongTermTooHigh());
+		rulebase.register(new HygroSensorLongTermTooLow());
+		rulebase.register(new HygroSensorMiddleTermTooHigh());
+		rulebase.register(new HygroSensorMiddleTermTooLow());
+		rulebase.register(new HygroSensorShortTermTooHigh());
+		rulebase.register(new HygroSensorShortTermTooLow());
+		
+		
 		
 		
 	}

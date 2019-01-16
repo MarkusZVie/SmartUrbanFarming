@@ -10,6 +10,15 @@ public class RulePreferences {
 	private double lightmediumMaximumValue;
 	private double lighthighMaximumValue;
 	
+	private double hygroLowMinValue;
+	private double hygroMediumMinValue;
+	private double hygroHighMinValue;
+	
+	private double hygroLowMaxValue;
+	private double hygroMediumMaxValue;
+	private double hygroHighMaxValue;
+	
+	
 	private RulePreferences() {
 		lightlowMinimumValue = -0.5;
 		lightmediumMinimumValue = -0.4;
@@ -19,8 +28,54 @@ public class RulePreferences {
 		lightmediumMaximumValue=0;
 		lighthighMaximumValue=0.2;
 		
+		hygroLowMinValue =  0.4;
+		hygroMediumMinValue = 0.55;
+		hygroHighMinValue = 0.7;
+		
+		hygroLowMaxValue =  0.8;
+		hygroMediumMaxValue = 0.9;
+		hygroHighMaxValue = 0.95;
+		
 	}
 	
+	
+	
+	public double getHygroLowMinValue() {
+		return hygroLowMinValue;
+	}
+
+
+
+	public double getHygroMediumMinValue() {
+		return hygroMediumMinValue;
+	}
+
+
+
+	public double getHygroHighMinValue() {
+		return hygroHighMinValue;
+	}
+
+
+
+	public double getHygroLowMaxValue() {
+		return hygroLowMaxValue;
+	}
+
+
+
+	public double getHygroMediumMaxValue() {
+		return hygroMediumMaxValue;
+	}
+
+
+
+	public double getHygroHighMaxValue() {
+		return hygroHighMaxValue;
+	}
+
+
+
 	public double getLightlowMinimumValue() {
 		return lightlowMinimumValue;
 	}

@@ -26,14 +26,14 @@ public class LightSensorLongTermTooHigh {
     public boolean when(@Fact(factName1) float avg, @Fact(factName2) float elight) {
 		RuleManager rm = RuleManager.getInstance();
 		ArrayList<String> cropFactNameList = rm.getFactNamesThatStartsWith("Crop.LIGHT.");
-		String highestValue= "low";
+		String highestValue= "high";
 		boolean returnValue = false;
 		for(String s: cropFactNameList) {
 			String newS = rm.getFact(s);
-			if(highestValue.equals("low")) {
+			if(highestValue.equals("high")) {
 				highestValue = newS;
 			}
-			if(highestValue.equals("medium") && newS.equals("high")) {
+			if(highestValue.equals("medium") && newS.equals("low")) {
 				highestValue = newS;
 			}
 		}

@@ -44,6 +44,9 @@ public class PersistenceFactReasoningThread extends Thread{
 			calcShortTermLightFact();
 			calcMiddleTermLightFact();
 			calcLongTermLightFact();
+			calcShortTermHygroFact(new Date(System.currentTimeMillis()-((long) (24*60*60) * (long) 1000)),"HygroShortTerm");
+			calcShortTermHygroFact(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"HygroMiddleTerm");
+			calcShortTermHygroFact(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"HygroLongTerm");
 			try {
 				this.sleep(timeInterval);
 			} catch (InterruptedException e) {
@@ -52,6 +55,48 @@ public class PersistenceFactReasoningThread extends Thread{
 			}
 			
 		}
+	}
+
+
+	private void calcShortTermHygroFact(Date calcBeginDate,String factName) {
+		//get Data
+		try {
+						
+			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
+			Date choosenDate = new Date();
+			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
+				choosenDate = startOfMeasurements;
+			}else {
+				choosenDate = calcBeginDate;
+			}
+			String sql = (""
+					+ "SELECT HYGRO, TIME_ "
+					+ "FROM sensordata "
+					+ "WHERE TIME_>= '" + sdf.format(choosenDate) + "' "
+					+ "AND FARM_NAME LIKE 'Modul1'");
+					
+			ArrayList<ArrayList<String>> result = DB_connection.readDB(sql);
+			
+			double avg=0.0;
+			for(ArrayList<String> al:result) {
+				avg += Double.parseDouble(al.get(0));
+			}
+			avg /= result.size();
+			rm.addFactToFactase(factName, (float) avg);
+		}  catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+				
+
+		
+		
+		
 	}
 
 
