@@ -12,13 +12,13 @@ import Messages.Message;
 import Messages.NotificationHandler;
 import ruleManagement.RuleManager;
 
-@Rule(name = "TempSensorLongTermTooHigh", description = "Create Message Temperature Shortterm depending")
+@Rule(name = "TempSensorLongTermTooHigh", description = "Create Message Temperature Longterm depending")
 public class TempSensorLongTermTooHigh {
 	
 	private final String ruleName = "TempSensorLongTermTooHigh";
-	private final String factName = "TempLongTerm"; // {'HygroShortTerm','HygroMiddleTerm','HygroLongTerm'}
-	private final String modelParameter = "TEMPERATURE";
-	private final String temporalModifer = "dieses Monat"; //{'heute','diese Woche','diesem Monat'}
+	private final String factName = "TempLongTerm"; 
+	private final String modelParameter = "TEMP";
+	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
 		
 	private final double lowMaximumValue = RulePreferences.getInstance().getTempLowMaxValue();
 	private final double mediumMaximumValue = RulePreferences.getInstance().getTempMediumMaxValue();
@@ -98,16 +98,16 @@ public class TempSensorLongTermTooHigh {
 			cropInformationList.add(newCrop);
 		}
 		for(ArrayList<String> cropAttributes: cropInformationList) {
-			String subject = temporalModifer +" die Temperatur höher als erwartet";
+			String subject = temporalModifer +" ist die Temperatur höher als benötigt";
 			String message ="";
 			if(cropAttributes.get(1).equals("low")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit von '"+cropAttributes.get(1)+"'es hatte "+temporalModifer+" jedoch "+(Double.parseDouble(cropAttributes.get(2)+"")-lowMaximumValue)*100+" % höhere Temperaturen als höchstens verträglich (insgesamt "+((Double.parseDouble(cropAttributes.get(2)+""))*100)+" % statt maximal "+ lowMaximumValue*100 + " %).";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten." ;
 			}
 			if(cropAttributes.get(1).equals("medium")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit von '"+cropAttributes.get(1)+"'es hatte "+temporalModifer+" jedoch "+(Double.parseDouble(cropAttributes.get(2)+"")-mediumMaximumValue)*100+" % höhere Temperaturen als höchstens verträglich (insgesamt "+((Double.parseDouble(cropAttributes.get(2)+""))*100)+" % statt maximal "+ mediumMaximumValue*100 + " %).";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
 			}
 			if(cropAttributes.get(1).equals("high")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit von '"+cropAttributes.get(1)+"'es hatte "+temporalModifer+" jedoch "+(Double.parseDouble(cropAttributes.get(2)+"")-highMaximumValue)*100+" % höhere Temperaturen als höchstens verträglich (insgesamt "+((Double.parseDouble(cropAttributes.get(2)+""))*100)+" % statt maximal "+ highMaximumValue*100 + " %).";
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
 			}
 			
 			Message m = new Message(new Date(), subject, message, ruleName);
