@@ -48,6 +48,8 @@ public class PersistenceFactReasoningThread extends Thread{
 			calcShortTermHygroFact(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"HygroMiddleTerm");
 			calcShortTermHygroFact(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"HygroLongTerm");
 			calcTemp(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"TempLongTerm");
+			calcTemp(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"TempMiddleTerm");
+			calcTemp(new Date(System.currentTimeMillis()-((long) (24*60*60)* (long) 1000)),"TempShortTerm");
 			try {
 				this.sleep(timeInterval);
 			} catch (InterruptedException e) {
