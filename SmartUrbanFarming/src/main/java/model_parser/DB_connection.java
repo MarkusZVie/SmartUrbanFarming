@@ -83,16 +83,16 @@ public class DB_connection {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		String selectAddition = "";
 		
+		
 		if(begin!=null && !begin.equals("") && !begin.equals("null") && end!=null && !end.equals("") && !end.equals("null")) {
 			try {
 				SimpleDateFormat sdfSpecific = new SimpleDateFormat("yyyy-MM-dd");
 				Date beginDate = sdfSpecific.parse(begin);
 				Date endDate = sdfSpecific.parse(end);
 				
-				selectAddition = " WHERE TIME_ >= '" + sdfSpecific.format(beginDate) + "' AND TIME_ <= '" + sdfSpecific.format(endDate) + "'"; 
+				selectAddition = " WHERE TIME_ >= '" + sdf.format(beginDate) + "' AND TIME_ <= '" + sdf.format(endDate) + "'"; 
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
 				selectAddition = "";
 			}
 		}else {
