@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Jan 20 12:38:06 CET 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0168-6b0d-b12b-000005f391d0 
+Sun Jan 20 13:46:18 CET 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-0168-6b4c-23c3-00000955f510 
 on database directory /Users/Beate/SmartUrbanFarming/SmartUrbanFarming/farming  with class loader WebappClassLoader
   context: /SmartUrbanFarming
   delegate: false

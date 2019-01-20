@@ -18,9 +18,9 @@ public class HumSensorShortTermTooLow {
 	private final String ruleName = "HumSensorShortTermTooLow";
 	private final String factName = "HumShortTerm"; 
 	private final String modelParameter = "WATER";
-	private final String temporalModifer = "Heute"; //{'heute','diese Woche','diesem Monat'}
+	private final String temporalModifer = "Heute"; 
 		
-	private final double lowMaximumValue = RulePreferences.getInstance().getHumHighMinValue();
+	private final double lowMaximumValue = RulePreferences.getInstance().getHumlowMinValue();
 	private final double mediumMaximumValue = RulePreferences.getInstance().getHumMediumMinValue();
 	private final double highMaximumValue = RulePreferences.getInstance().getHumHighMinValue();
 	
