@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DB_connection {
 	static Connection conn;
@@ -47,6 +49,81 @@ public class DB_connection {
 			Statement stmt = conn.createStatement();		
 		
 			ResultSet rs = stmt.executeQuery("SELECT * FROM sensordata");
+			int columnsNumber = rs.getMetaData().getColumnCount();
+			
+			
+			//create header
+			String[] header = new String[columnsNumber];
+			for (int i = 0; i < columnsNumber; i++) {
+				header[i] = rs.getMetaData().getColumnName(i+1);
+			}
+			returnList.add(header);
+			
+			//create data
+			while (rs.next()) {
+				String[] valueI = new String[columnsNumber];
+				for (int i = 0; i < columnsNumber; i++) {
+					valueI[i] = rs.getString(i+1);
+				}
+				returnList.add(valueI); 
+			}
+			rs.close();
+			stmt.close();	
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return returnList;
+		
+	}
+	
+	public static ArrayList<String[]> getSensorData(String begin, String end, String quick){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		String selectAddition = "";
+		
+		if(begin!=null && !begin.equals("") && !begin.equals("null") && end!=null && !end.equals("") && !end.equals("null")) {
+			try {
+				SimpleDateFormat sdfSpecific = new SimpleDateFormat("yyyy-MM-dd");
+				Date beginDate = sdfSpecific.parse(begin);
+				Date endDate = sdfSpecific.parse(end);
+				
+				selectAddition = " WHERE TIME_ >= '" + sdfSpecific.format(beginDate) + "' AND TIME_ <= '" + sdfSpecific.format(endDate) + "'"; 
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				selectAddition = "";
+			}
+		}else {
+			if(quick!=null && !quick.equals("") && !quick.equals("null")) {
+				if(quick.equals("day")) {
+					selectAddition = " WHERE TIME_ >= '" + sdf.format(new Date((long)(System.currentTimeMillis()/1000-24*60*60) * (long) 1000)) + "'";
+				}
+				if(quick.equals("week")) {
+					selectAddition = " WHERE TIME_ >= '" + sdf.format(new Date((long)(System.currentTimeMillis()/1000-24*60*60*7) * (long) 1000)) + "'";				
+				}
+				if(quick.equals("month")) {
+					selectAddition = " WHERE TIME_ >= '" + sdf.format(new Date((long)(System.currentTimeMillis()/1000-24*60*60*31) * (long) 1000)) + "'";
+				}
+				if(quick.equals("all")) {
+					selectAddition = "";
+				}
+			}
+		}
+		
+		
+		
+		ArrayList<String[]> returnList = new ArrayList<String[]>();
+		
+		try {
+			String dbUrl = "jdbc:derby:farming;create=false";
+			conn = DriverManager.getConnection(dbUrl);
+			Statement stmt = conn.createStatement();		
+		
+			System.out.println("SELECT * FROM sensordata" + selectAddition);
+			
+			ResultSet rs = stmt.executeQuery("SELECT * FROM sensordata" + selectAddition);
 			int columnsNumber = rs.getMetaData().getColumnCount();
 			
 			

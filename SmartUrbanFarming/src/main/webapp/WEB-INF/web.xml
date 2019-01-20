@@ -29,7 +29,6 @@
   	<description></description>
   	<servlet-class>servlets.NotificationSettings</servlet-class>
   </servlet>
- 
   
   <servlet-mapping>
   	<servlet-name>UploadFileHandler</servlet-name>

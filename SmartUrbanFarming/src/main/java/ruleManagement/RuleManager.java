@@ -120,7 +120,7 @@ public class RuleManager {
 			}
         }
         */
-        System.out.println(NotificationHandler.getInstance().printAllActiveMessages());
+        //System.out.println(NotificationHandler.getInstance().printAllActiveMessages());
         
 		
 	}
