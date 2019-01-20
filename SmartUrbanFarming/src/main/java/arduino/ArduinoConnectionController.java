@@ -133,8 +133,9 @@ public synchronized void serialEvent(SerialPortEvent oEvent) {
 			String inputLine=input.readLine();
 			if(inputLine.startsWith("<values>") && inputLine.endsWith("</values>") ) {
 				parseInputline(inputLine);
-				log.add(inputLine);
+				
 			}
+			log.add(inputLine);
 			System.out.println(inputLine);
 			
 		} catch (Exception e) {
@@ -220,6 +221,10 @@ public synchronized String getWebLog() {
 		sb.append(s + "<br>");
 	}
 	return sb.toString();
+}
+
+public synchronized ArrayList<String> getLog(){
+	return log;
 }
 
 
