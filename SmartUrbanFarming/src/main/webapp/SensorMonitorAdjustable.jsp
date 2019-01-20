@@ -171,7 +171,7 @@ var chart2 = new CanvasJS.Chart("chartContainer2", {
 	axisY2: {
 		title: "Grad Celsius",
 		prefix: "",
-		suffix: "%"
+		suffix: "°C"
 	},
 	toolTip: {
 		shared: true
@@ -220,9 +220,8 @@ function toogleDataSeries(e){
 			<a href="../SmartUrbanFarming" class="w3-bar-item w3-button">Home</a>
 			<!-- Right-sided navbar links. Hide them on small screens -->
 			<div class="w3-right w3-hide-small">
-				<a href="#home" class="w3-bar-item w3-button">Top</a>
-				<a href="#facts" class="w3-bar-item w3-button">Facts</a>
-				<a href="#Notifications" class="w3-bar-item w3-button">Notifications</a>
+				<a href="#filter" class="w3-bar-item w3-button">Filter</a>
+				<a href="#sensorDatea" class="w3-bar-item w3-button">SensorData</a>
 			</div>
 		</div>
 	</div>
@@ -242,7 +241,7 @@ function toogleDataSeries(e){
 	<!-- Page content -->
 	<div class="w3-content w3-white" style="max-width: 1200px">
 
-		<div class="w3-row" id="Notifications">
+		<div class="w3-row" id="filter">
 			<div class="w3-margin-64" id="Notifications">
 				<button type="button" class="btn btn-info w3-margin" data-toggle="collapse" data-target="#collapseableFilter" style="width: calc(100% - 32px);">Show Filter</button>
 				<div id="collapseableFilter" class="collapse w3-margin">
@@ -263,11 +262,12 @@ function toogleDataSeries(e){
 		</div>
 			
 		<hr>
+		<div class="w3-row" id="sensorDatea">
+			<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+			<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		
-		<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-		<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-		
+		</div>
 		<hr>
 
 
