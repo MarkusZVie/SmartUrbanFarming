@@ -223,7 +223,7 @@ public class PersistenceFactReasoningThread extends Thread{
 			
 			
 			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
-			Date calcBeginDate = new Date(System.currentTimeMillis()/1000-24*60*60*31);
+			Date calcBeginDate = new Date((long)(System.currentTimeMillis()/1000-24*60*60*31)*(long)1000);
 			Date choosenDate = new Date();
 			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
 				choosenDate = startOfMeasurements;
