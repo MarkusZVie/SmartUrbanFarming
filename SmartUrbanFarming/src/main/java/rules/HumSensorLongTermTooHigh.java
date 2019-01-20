@@ -17,7 +17,7 @@ public class HumSensorLongTermTooHigh {
 	
 	private final String ruleName = "HumSensorLongTermTooHigh";
 	private final String factName = "HumLongTerm"; 
-	private final String modelParameter = "HUMIDITY";
+	private final String modelParameter = "WATER";
 	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
 		
 	private final double lowMaximumValue = RulePreferences.getInstance().getTempLowMaxValue();
