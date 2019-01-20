@@ -17,16 +17,16 @@ public class HumSensorLongTermTooHigh {
 	
 	private final String ruleName = "HumSensorLongTermTooHigh";
 	private final String factName = "HumLongTerm"; 
-	private final String modelParameter = "HUMIDITY";
+	private final String modelParameter = "WATER";
 	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
 		
-	private final double lowMaximumValue = RulePreferences.getInstance().getTempLowMaxValue();
-	private final double mediumMaximumValue = RulePreferences.getInstance().getTempMediumMaxValue();
-	private final double highMaximumValue = RulePreferences.getInstance().getTempHighMaxValue();
+	private final double lowMaximumValue = RulePreferences.getInstance().getHumLowMaxValue();
+	private final double mediumMaximumValue = RulePreferences.getInstance().getHumMediumMaxValue();
+	private final double highMaximumValue = RulePreferences.getInstance().getHumHighMaxValue();
 	
 	
 	@Condition
-    public boolean when(@Fact(factName) float temp) {
+    public boolean when(@Fact(factName) float hum) {
 		RuleManager rm = RuleManager.getInstance();
 		ArrayList<String> cropFactNameList = rm.getFactNamesThatStartsWith("Crop."+modelParameter+".");
 		String highestValue= "high";
@@ -42,21 +42,21 @@ public class HumSensorLongTermTooHigh {
 		}
 		
 		if(highestValue.equals("low")) {
-			if(temp>lowMaximumValue) {
+			if(hum>lowMaximumValue) {
 				returnValue=  true;//send message
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("medium")) {
-			if(temp>mediumMaximumValue) {
+			if(hum>mediumMaximumValue) {
 				returnValue =  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("high")) {
-			if(temp>highMaximumValue) {
+			if(hum>highMaximumValue) {
 				returnValue = true;
 			}else {
 				returnValue = false;

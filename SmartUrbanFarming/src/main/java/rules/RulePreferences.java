@@ -55,17 +55,17 @@ public class RulePreferences {
 		tempMediumMinValue =	 15;
 		tempHighMinValue = 25;
 		
-		tempLowMaxValue = 15;
-		tempMediumMaxValue = 25;
+		tempLowMaxValue = 25;
+		tempMediumMaxValue = 30;
 		tempHighMaxValue = 35;
 		
-		humLowMinValue = 40;
-		humMediumMinValue =	 60;
-		humHighMinValue = 80;
+		humLowMinValue = 0.30;
+		humMediumMinValue =	 0.60;
+		humHighMinValue = 0.80;
 		
-		humLowMaxValue = 60;
-		humMediumMaxValue = 80;
-		humHighMaxValue = 90;
+		humLowMaxValue = 0.60;
+		humMediumMaxValue = 0.80;
+		humHighMaxValue = 0.90;
 		
 	}
 	

@@ -184,7 +184,6 @@ public class PersistenceFactReasoningThread extends Thread{
 			rm.addFactToFactase("Crop.WATER."+row.get(0), row.get(1));
 			rm.addFactToFactase("Crop.TEMP."+row.get(0), row.get(2));
 			rm.addFactToFactase("Crop.LIGHT."+row.get(0), row.get(3));
-			//rm.addFactToFactase("Crop.HUMIDITY."+row.get(0), row.get(0));
 			rm.addFactToFactase("Crop.MODULE."+row.get(0), row.get(4));
 			
 		}

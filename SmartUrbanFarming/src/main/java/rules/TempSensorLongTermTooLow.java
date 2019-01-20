@@ -20,9 +20,9 @@ public class TempSensorLongTermTooLow {
 	private final String modelParameter = "TEMP";
 	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
 		
-	private final double lowMaximumValue = RulePreferences.getInstance().getTempLowMaxValue();
-	private final double mediumMaximumValue = RulePreferences.getInstance().getTempMediumMaxValue();
-	private final double highMaximumValue = RulePreferences.getInstance().getTempHighMaxValue();
+	private final double lowMaximumValue = RulePreferences.getInstance().getTemplowMinValue();
+	private final double mediumMaximumValue = RulePreferences.getInstance().getTempMediumMinValue();
+	private final double highMaximumValue = RulePreferences.getInstance().getTempHighMinValue();
 	
 	
 	@Condition
