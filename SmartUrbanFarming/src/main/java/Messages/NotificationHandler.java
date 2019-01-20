@@ -80,5 +80,21 @@ public class NotificationHandler {
 	public ArrayList<Message> getClosedMessages() {
 		return closedMessages;
 	}
+
+
+	public String getMail() {
+		StringBuilder sb = new StringBuilder();
+		for(Message m : activeMessages) {
+			sb.append(m.getSubject());
+			sb.append('\n');
+			sb.append(m.getMessage());
+			sb.append('\n');
+			sb.append(m.getMessage());
+			sb.append('\n');
+			sb.append('\n');
+			
+		}
+		return sb.toString();
+	}
 	
 }

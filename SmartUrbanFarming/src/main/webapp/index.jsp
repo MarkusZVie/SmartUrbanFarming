@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
 			
 		<hr>
 		
-		<div class="w3-row w3-padding-64" id="content">
+		<div class="w3-row w3-margin w3-padding-16" id="content">
 			<div class ="">
 				Decription of the Project here
 			</div>

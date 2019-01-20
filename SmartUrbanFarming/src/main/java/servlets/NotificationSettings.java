@@ -40,6 +40,7 @@ public class NotificationSettings extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("here");
 		String toDeleteMail[] = request.getParameterValues("toDeleteMail");
 		if(toDeleteMail != null) {
 			for(String s: toDeleteMail) {

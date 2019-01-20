@@ -28,6 +28,5 @@ public class TestRule {
     public void then() throws Exception {
         System.out.println("--------------->Light is under 10 %");
         System.out.println("--------------->Send Mail to MailList");
-        System.out.println("--------------->"+NotificationMailer.getInstance().sendMailToMailList("Light Is under 10%", "Hello guys \n the light is under 10% \n today is the"+ new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss").format(new Date())));
-    }
+         }
 }

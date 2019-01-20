@@ -14,6 +14,7 @@ import java.util.Date;
 
 import org.shredzone.commons.suncalc.SunTimes;
 
+import mailing.NotificationMailer;
 import model_parser.DB_connection;
 
 public class PersistenceFactReasoningThread extends Thread{
@@ -53,6 +54,11 @@ public class PersistenceFactReasoningThread extends Thread{
 			calcHum(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"HumLongTerm");
 			calcHum(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"HumMiddleTerm");
 			calcHum(new Date(System.currentTimeMillis()-((long) (24*60*60)* (long) 1000)),"HumShortTerm");
+			
+
+	          
+	        NotificationMailer.getInstance().doMail();
+			
 			try {
 				this.sleep(timeInterval);
 			} catch (InterruptedException e) {

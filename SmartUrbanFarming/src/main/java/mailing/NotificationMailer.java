@@ -1,6 +1,15 @@
 package mailing;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -12,6 +21,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+
+import Messages.NotificationHandler;
+
 //source: https://www.mkyong.com/java/javamail-api-sending-email-via-gmail-smtp-example/
 
 
@@ -21,12 +42,12 @@ public class NotificationMailer {
 	private final static String password = "%?_7M2Zd3cdba?zpYmTsCKV%cU5ujxq@";
 	private static NotificationMailer instance;
 	
-	private static ArrayList<String> notificationMailList;
+	private static ArrayList<MailDate> notificationMailList;
 	
 	
 	private NotificationMailer() {
 		//private constructor -> singelton
-		notificationMailList = new ArrayList<String>();
+		notificationMailList = new ArrayList<MailDate>();
 	}
 	
 	
@@ -34,11 +55,15 @@ public class NotificationMailer {
 
 
 	public ArrayList<String> getNotificationMailList() {
-		return notificationMailList;
+		ArrayList<String> returnList= new ArrayList<String>();
+		for(MailDate md: notificationMailList) {
+			returnList.add(md.getMail());
+		}
+		return returnList;
 	}
 
 	public void addNotificationMailList(String mail) {
-		this.notificationMailList.add(mail);
+		this.notificationMailList.add(new MailDate(mail, null));
 	}
 	
 	public void deleteNotificationMailList(String mail) {
@@ -64,39 +89,58 @@ public class NotificationMailer {
 
 
 
-	public static String sendMailToMailList(String subject, String text) {
-		StringBuilder sb = new StringBuilder();
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
+
+
+	public void doMail() {
+		if(NotificationHandler.getInstance().getActiveMessages().size()>0) {
+			HttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost("http://volquir90.bplaced.net/mailer.php");
+	
+			for(MailDate mail: notificationMailList) {
+				boolean sendMail=false;
+				
+				if(mail.getDate()==null) {
+					sendMail=true;
+				}else {
+					if(mail.getDate().getTime()< (new Date().getTime()-(60*60*1000*24))) {
+						sendMail=true;
+					}else {
+					}
+				}
+					
+				if(sendMail) {
+					// Request parameters and other properties.
+					List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+					params.add(new BasicNameValuePair("apiKey", "sjhf8938hrssd!!!§$l98h92bf9h2989hg"));
+					params.add(new BasicNameValuePair("text", NotificationHandler.getInstance().getMail()));
+					params.add(new BasicNameValuePair("subject", "SmartUrbanFarming Notification"));
+					params.add(new BasicNameValuePair("mailTo", mail.getMail()));
+					try {
+						httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+						//Execute and get the response.
+						HttpResponse response = httpclient.execute(httppost);
+						HttpEntity entity = response.getEntity();
+		
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ClientProtocolException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					mail.setDate(new Date());
+				}
 			}
-		  });
-
-		try {
-			sb.append("MailSendTo:");
-			System.out.println(notificationMailList.toString() + notificationMailList.size());
-			for(String mail: notificationMailList) {
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(username));
-				message.addRecipient(Message.RecipientType.TO,new InternetAddress(mail));
-				message.setSubject(subject);
-				message.setText(text);
-				Transport.send(message);
-				sb.append(mail + ";");
-			}
-			
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
 		}
-		return sb.toString();
+		
+		
+
+		
+		
+		
 	}
 }

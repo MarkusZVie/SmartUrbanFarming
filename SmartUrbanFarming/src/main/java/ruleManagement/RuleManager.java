@@ -67,7 +67,7 @@ public class RuleManager {
 
 	//all relevant rules should be registered here
 	private void registerRules() {
-		rulebase.register(new TestRule()); //this is for later remove
+		//rulebase.register(new TestRule()); //this is for later remove
 		
 		rulebase.register(new SensorMeasurementsShortTerm()); //this is for later remove
 		rulebase.register(new SensorMeasurementsMiddleTerm());

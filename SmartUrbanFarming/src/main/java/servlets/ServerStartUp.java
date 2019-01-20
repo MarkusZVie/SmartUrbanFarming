@@ -7,10 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import arduino.ArduinoConnectionController;
+import mailing.NotificationMailer;
 import model_parser.DB_connection;
 import ruleManagement.PersistenceFactReasoningThread;
 import ruleManagement.PersistenceRBSThread;
 import ruleManagement.RuleManager;
+
+import java.io.*;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import javax.servlet.http.*;
+import javax.servlet.*;
 
 /**
  * Servlet implementation class ServerStartUp
