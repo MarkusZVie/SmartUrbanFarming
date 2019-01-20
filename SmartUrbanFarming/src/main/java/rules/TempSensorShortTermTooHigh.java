@@ -12,13 +12,13 @@ import Messages.Message;
 import Messages.NotificationHandler;
 import ruleManagement.RuleManager;
 
-@Rule(name = "TempSensorLongTermTooHigh", description = "Create Message Temperature Longterm depending")
-public class TempSensorLongTermTooHigh {
+@Rule(name = "TempSensorShortTermTooHigh", description = "Create Message Temperature ShortTerm depending")
+public class TempSensorShortTermTooHigh {
 	
-	private final String ruleName = "TempSensorLongTermTooHigh";
-	private final String factName = "TempLongTerm"; 
+	private final String ruleName = "TempSensorShortTermTooHigh";
+	private final String factName = "TempShortTerm"; 
 	private final String modelParameter = "TEMP";
-	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
+	private final String temporalModifer = "Heute"; //{'heute','diese Woche','diesem Monat'}
 		
 	private final double lowMaximumValue = RulePreferences.getInstance().getTempLowMaxValue();
 	private final double mediumMaximumValue = RulePreferences.getInstance().getTempMediumMaxValue();

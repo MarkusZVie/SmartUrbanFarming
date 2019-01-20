@@ -23,6 +23,11 @@ import rules.LightSensorMiddleTermTooLow;
 import rules.LightSensorShortTermTooHigh;
 import rules.LightSensorShortTermTooLow;
 import rules.TempSensorLongTermTooHigh;
+import rules.TempSensorLongTermTooLow;
+import rules.TempSensorMiddleTermTooHigh;
+import rules.TempSensorMiddleTermTooLow;
+import rules.TempSensorShortTermTooHigh;
+import rules.TempSensorShortTermTooLow;
 import rules.SensorMeasurementsLongTerm;
 import rules.SensorMeasurementsMiddleTerm;
 import rules.SensorMeasurementsShortTerm;
@@ -77,7 +82,11 @@ public class RuleManager {
 		rulebase.register(new HygroSensorShortTermTooLow());
 		
 		rulebase.register(new TempSensorLongTermTooHigh());
-		
+		rulebase.register(new TempSensorMiddleTermTooHigh());
+		rulebase.register(new TempSensorShortTermTooHigh());
+		rulebase.register(new TempSensorLongTermTooLow());
+		rulebase.register(new TempSensorMiddleTermTooLow());
+		rulebase.register(new TempSensorShortTermTooLow());
 		
 	}
 	

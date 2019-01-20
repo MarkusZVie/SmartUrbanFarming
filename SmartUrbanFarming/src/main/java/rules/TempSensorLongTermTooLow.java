@@ -12,10 +12,10 @@ import Messages.Message;
 import Messages.NotificationHandler;
 import ruleManagement.RuleManager;
 
-@Rule(name = "TempSensorLongTermTooHigh", description = "Create Message Temperature Longterm depending")
-public class TempSensorLongTermTooHigh {
+@Rule(name = "TempSensorLongTermTooLow", description = "Create Message Temperature Longterm depending")
+public class TempSensorLongTermTooLow {
 	
-	private final String ruleName = "TempSensorLongTermTooHigh";
+	private final String ruleName = "TempSensorLongTermTooLow";
 	private final String factName = "TempLongTerm"; 
 	private final String modelParameter = "TEMP";
 	private final String temporalModifer = "Dieses Monat"; //{'heute','diese Woche','diesem Monat'}
@@ -42,21 +42,21 @@ public class TempSensorLongTermTooHigh {
 		}
 		
 		if(highestValue.equals("low")) {
-			if(temp>lowMaximumValue) {
+			if(temp<lowMaximumValue) {
 				returnValue=  true;//send message
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("medium")) {
-			if(temp>mediumMaximumValue) {
+			if(temp<mediumMaximumValue) {
 				returnValue =  true;
 			}else {
 				returnValue = false;
 			}
 		}
 		if(highestValue.equals("high")) {
-			if(temp>highMaximumValue) {
+			if(temp<highMaximumValue) {
 				returnValue = true;
 			}else {
 				returnValue = false;
@@ -98,16 +98,16 @@ public class TempSensorLongTermTooHigh {
 			cropInformationList.add(newCrop);
 		}
 		for(ArrayList<String> cropAttributes: cropInformationList) {
-			String subject = temporalModifer +" ist die Temperatur höher als benötigt";
+			String subject = temporalModifer +" ist die Temperatur niedriger als benötigt";
 			String message ="";
 			if(cropAttributes.get(1).equals("low")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten." ;
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Heizung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten." ;
 			}
 			if(cropAttributes.get(1).equals("medium")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Heizung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
 			}
 			if(cropAttributes.get(1).equals("high")) {
-				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Kühlung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
+				message = "Die Pflanze: '"+cropAttributes.get(0)+"' hat die Temperatur-Verträglichkeit '"+cropAttributes.get(1)+ "', stellen Sie bitte die Heizung an, um eine ideale Umgebung für die Pflanzen zu gewährleisten. " ;
 			}
 			
 			Message m = new Message(new Date(), subject, message, ruleName);
