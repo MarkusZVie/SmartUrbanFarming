@@ -10,6 +10,12 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 
 import Messages.Message;
 import Messages.NotificationHandler;
+import rules.HumSensorLongTermTooHigh;
+import rules.HumSensorLongTermTooLow;
+import rules.HumSensorMiddleTermTooHigh;
+import rules.HumSensorMiddleTermTooLow;
+import rules.HumSensorShortTermTooHigh;
+import rules.HumSensorShortTermTooLow;
 import rules.HygroSensorLongTermTooHigh;
 import rules.HygroSensorLongTermTooLow;
 import rules.HygroSensorMiddleTermTooHigh;
@@ -51,7 +57,7 @@ public class RuleManager {
 	
 
 
-	//singelton
+	//singleton
 	public static RuleManager getInstance() {
 		if(instance == null) {
 			instance = new RuleManager();
@@ -59,7 +65,7 @@ public class RuleManager {
 		return instance;
 	}
 
-	//all relevant rules should be registerd here
+	//all relevant rules should be registered here
 	private void registerRules() {
 		rulebase.register(new TestRule()); //this is for later remove
 		
@@ -87,6 +93,13 @@ public class RuleManager {
 		rulebase.register(new TempSensorLongTermTooLow());
 		rulebase.register(new TempSensorMiddleTermTooLow());
 		rulebase.register(new TempSensorShortTermTooLow());
+		
+		rulebase.register(new HumSensorLongTermTooHigh());
+		rulebase.register(new HumSensorMiddleTermTooHigh());
+		rulebase.register(new HumSensorShortTermTooHigh());
+		rulebase.register(new HumSensorLongTermTooLow());
+		rulebase.register(new HumSensorMiddleTermTooLow());
+		rulebase.register(new HumSensorShortTermTooLow());
 		
 	}
 	
