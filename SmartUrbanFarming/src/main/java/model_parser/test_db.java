@@ -9,7 +9,7 @@ public class test_db{
 		String name = "";
 		System.out.println(name);
 		DB_connection.dbSensors(name, 4748+"", 49494+"", 4949+"", 4944+"");
-		dbToCsv.readData();
+		DB_connection.printDb("SELECT * FROM crop");
 	
 	}
 }

@@ -50,6 +50,9 @@ public class PersistenceFactReasoningThread extends Thread{
 			calcTemp(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"TempLongTerm");
 			calcTemp(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"TempMiddleTerm");
 			calcTemp(new Date(System.currentTimeMillis()-((long) (24*60*60)* (long) 1000)),"TempShortTerm");
+			calcHum(new Date(System.currentTimeMillis()-((long) (31*24*60*60)* (long) 1000)),"HumLongTerm");
+			calcHum(new Date(System.currentTimeMillis()-((long) (7*24*60*60) * (long) 1000)),"HumMiddleTerm");
+			calcHum(new Date(System.currentTimeMillis()-((long) (24*60*60)* (long) 1000)),"HumShortTerm");
 			try {
 				this.sleep(timeInterval);
 			} catch (InterruptedException e) {
@@ -127,6 +130,41 @@ public class PersistenceFactReasoningThread extends Thread{
 			e.printStackTrace();
 		}
 	}
+	
+	private void calcHum(Date calcBeginDate,String factName) {
+
+		try {
+						
+			Date startOfMeasurements = sdf.parse(rm.getFact("StartOfMonitoring"));
+			Date choosenDate = new Date();
+			if(calcBeginDate.getTime()<startOfMeasurements.getTime()) {
+				choosenDate = startOfMeasurements;
+			}else {
+				choosenDate = calcBeginDate;
+			}
+			String sql = (""
+					+ "SELECT HUMIDITY, TIME_ "
+					+ "FROM sensordata "
+					+ "WHERE TIME_>= '" + sdf.format(choosenDate) + "' "
+					+ "AND FARM_NAME LIKE 'Modul1'");
+					
+			ArrayList<ArrayList<String>> result = DB_connection.readDB(sql);
+			
+			double avg=0.0;
+			for(ArrayList<String> al:result) {
+				avg += Double.parseDouble(al.get(0));
+			}
+			avg /= result.size();
+			rm.addFactToFactase(factName, (float) avg);
+		}  catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 
 	private void getCropInformations() {
@@ -146,6 +184,7 @@ public class PersistenceFactReasoningThread extends Thread{
 			rm.addFactToFactase("Crop.WATER."+row.get(0), row.get(1));
 			rm.addFactToFactase("Crop.TEMP."+row.get(0), row.get(2));
 			rm.addFactToFactase("Crop.LIGHT."+row.get(0), row.get(3));
+			//rm.addFactToFactase("Crop.HUMIDITY."+row.get(0), row.get(0));
 			rm.addFactToFactase("Crop.MODULE."+row.get(0), row.get(4));
 			
 		}
